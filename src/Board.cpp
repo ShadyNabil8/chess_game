@@ -1,4 +1,5 @@
 #include "../include/Board.h"
+//--------------------------------------------------------------
 Board::Board()
 {
 }
@@ -6,27 +7,64 @@ Board::Board()
 Board::~Board()
 {
 }
-void Board::init(wxPanel *panel)
+Board::Board(MyFrame *frame)
 {
-    // Create a grid sizer for the chessboard
-    wxGridSizer *chessboardSizer = new wxGridSizer(8, 8, 0, 0);
+    /* Create a grid sizer for the chessboard */
+    this->chessboardSizer = new wxGridSizer(8, 8, 0, 0);
+    /* Set the grid sizer as the sizer for the panel */
+    this->panel = new wxPanel(frame, wxID_ANY);
+    panel->SetSizer(this->chessboardSizer);
+    this->Draw(this->chessboardSizer, this->square_array);
+}
+void Board::MovingChessPawn(int ox, int oy, int nx, int ny, const wxString &imagePath)
+{
+}
+void Board::PutPawn(wxWindow &square, const wxString &imagePath)
+{
+    /* Create a bitmap for the image */
+    wxBitmap bitmap;
+    /* Load the image file into the bitmap */
+    bitmap.LoadFile(imagePath, wxBITMAP_TYPE_PNG);
+    wxStaticBitmap *staticBitmap = new wxStaticBitmap(&square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
+    wxBoxSizer *squareSizer = new wxBoxSizer(wxHORIZONTAL);
+    squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
+    square.SetSizer(squareSizer);
+}
+void Board::RemovePawn(wxWindow &square)
+{
+    // Get the sizer associated with the square
+    wxSizer *squareSizer = square.GetSizer();
 
+    if (squareSizer)
+    {
+        // Remove all items from the sizer
+        squareSizer->Clear(true); // true indicates that the items should be deleted
+        // Layout the square to reflect the changes
+        square.Layout();
+    }
+}
+void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
+{
     // Populate the chessboard with squares
     for (int y = 0; y < 8; y++)
     {
         for (int x = 0; x < 8; x++)
         {
-            wxWindow *square = new wxWindow(panel, wxID_ANY);
+            // wxWindow *square = new wxWindow(panel, wxID_ANY);
+            this->square_array[x][y] = new wxWindow(panel, wxID_ANY);
             if ((x + y) % 2 == 0)
             {
-                square->SetBackgroundColour(wxColour(209, 139, 71)); // Set the background color of the square
+                square_array[x][y]->SetBackgroundColour(wxColour(92, 50, 48, 255)); // Set the background color of the square
             }
             else
             {
-                square->SetBackgroundColour(wxColour(255, 206, 158)); // Set the background color of the square
+                square_array[x][y]->SetBackgroundColour(wxColour(120, 73, 57, 255)); // Set the background color of the square
             }
-            chessboardSizer->Add(square, 1, wxEXPAND | wxALL, 0); // Add the square to the grid sizer
+            // Add the square to the grid sizer
+            chessboardSizer->Add(square_array[x][y], 1, wxEXPAND | wxALL, 0);
         }
     }
-    panel->SetSizer(chessboardSizer); // Set the grid sizer as the sizer for the panel
+    this->PutPawn(*square_array[0][0], "/home/shady/chess_game/images/b_bishop_1x.png");
+    this->RemovePawn(*square_array[0][0]);
+    this->PutPawn(*square_array[0][2], "/home/shady/chess_game/images/b_bishop_1x.png");
 }

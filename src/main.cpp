@@ -9,24 +9,15 @@
 #elif TEST == 2
 
 #include <wx/wx.h>
-#include "../include/Board.h"
-class MyFrame : public wxFrame
-{
-public:
-    MyFrame() : wxFrame(NULL, wxID_ANY, "Chessboard", wxDefaultPosition, wxSize(800, 800))
-    {
-        wxPanel *panel = new wxPanel(this, wxID_ANY);
-        Board *chessboard = new Board();
-        chessboard->init(panel);
-    }
-};
-
+#include "../include/Board.h" 
+#include "../include/Frame.h" 
 class MyApp : public wxApp
 {
 public:
     virtual bool OnInit()
     {
         MyFrame *frame = new MyFrame();
+        Board *chessboard = new Board(frame);
         frame->Show(true);
         return true;
     }
