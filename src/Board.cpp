@@ -1,5 +1,9 @@
 #include "../include/Board.h"
-//--------------------------------------------------------------
+
+//--------------------------------------------------------------//
+//                         Constructors                         //
+//--------------------------------------------------------------//
+
 Board::Board()
 {
 }
@@ -16,6 +20,11 @@ Board::Board(MyFrame *frame)
     panel->SetSizer(this->chessboardSizer);
     this->Draw(this->chessboardSizer, this->square_array);
 }
+
+//--------------------------------------------------------------//
+//                         Move Pawn                            //
+//--------------------------------------------------------------//
+
 void Board::MovingChessPawn(int ox, int oy, int nx, int ny, const wxString &imagePath)
 {
 }
@@ -30,6 +39,11 @@ void Board::PutPawn(wxWindow &square, const wxString &imagePath)
     squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
     square.SetSizer(squareSizer);
 }
+
+//--------------------------------------------------------------//
+//                        Delete Pawn                           //
+//--------------------------------------------------------------//
+
 void Board::RemovePawn(wxWindow &square)
 {
     // Get the sizer associated with the square
@@ -43,6 +57,11 @@ void Board::RemovePawn(wxWindow &square)
         square.Layout();
     }
 }
+
+//--------------------------------------------------------------//
+//                       Draw The Board                         //
+//--------------------------------------------------------------//
+
 void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
 {
     // Populate the chessboard with squares
@@ -64,7 +83,7 @@ void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
             chessboardSizer->Add(square_array[x][y], 1, wxEXPAND | wxALL, 0);
         }
     }
-    this->PutPawn(*square_array[0][0], "/home/shady/chess_game/images/b_bishop_1x.png");
-    this->RemovePawn(*square_array[0][0]);
-    this->PutPawn(*square_array[0][2], "/home/shady/chess_game/images/b_bishop_1x.png");
 }
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
