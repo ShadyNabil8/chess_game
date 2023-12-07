@@ -5,6 +5,7 @@
 #include "Pawn.h"
 #include "Queen.h"
 #include "Rook.h"
+#include "King.h"
 #include "Board.h"
 #include "Frame.h"
 #endif

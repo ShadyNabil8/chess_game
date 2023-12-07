@@ -35,7 +35,9 @@ public:
     Piece(int x, int y, Color color, wxWindow *square);
     void Put(int x, int y);
     void Move(int o_x, int o_y, int n_x, int n_y);
-    void Delete();
+    void Delete(wxWindow &square);
+    void OnPiecePressed(wxMouseEvent &event);
+
 
 private:
 protected:

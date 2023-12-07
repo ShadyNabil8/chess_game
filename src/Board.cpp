@@ -28,19 +28,19 @@ Board::Board(MyFrame *frame)
 void Board::MovingChessPawn(int ox, int oy, int nx, int ny, const wxString &imagePath)
 {
 }
-void Board::PutPawn(wxWindow &square, const wxString &imagePath)
-{
-    /* Create a bitmap for the image */
-    wxBitmap bitmap;
-    /* Load the image file into the bitmap */
-    bitmap.LoadFile(imagePath, wxBITMAP_TYPE_PNG);
-    wxStaticBitmap *staticBitmap = new wxStaticBitmap(
-        &square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
-    //staticBitmap->Bind(wxEVT_LEFT_DOWN, &Board::OnPawnPressed, this);
-    wxBoxSizer *squareSizer = new wxBoxSizer(wxHORIZONTAL);
-    squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
-    square.SetSizer(squareSizer);
-}
+// void Board::PutPawn(wxWindow &square, const wxString &imagePath)
+// {
+//     /* Create a bitmap for the image */
+//     wxBitmap bitmap;
+//     /* Load the image file into the bitmap */
+//     bitmap.LoadFile(imagePath, wxBITMAP_TYPE_PNG);
+//     wxStaticBitmap *staticBitmap = new wxStaticBitmap(
+//         &square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
+//     //staticBitmap->Bind(wxEVT_LEFT_DOWN, &Board::OnPawnPressed, this);
+//     wxBoxSizer *squareSizer = new wxBoxSizer(wxHORIZONTAL);
+//     squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
+//     square.SetSizer(squareSizer);
+// }
 
 //--------------------------------------------------------------//
 //                        Delete Pawn                           //
@@ -86,6 +86,24 @@ void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
         }
     }
 }
+
+
+//--------------------------------------------------------------//
+//                       Init The Paws                          //
+//--------------------------------------------------------------//
+
+void Board::InitPaws()
+{
+    
+}
+
+
+
+
+
+
+
+
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
