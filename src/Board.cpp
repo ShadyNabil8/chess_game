@@ -34,7 +34,9 @@ void Board::PutPawn(wxWindow &square, const wxString &imagePath)
     wxBitmap bitmap;
     /* Load the image file into the bitmap */
     bitmap.LoadFile(imagePath, wxBITMAP_TYPE_PNG);
-    wxStaticBitmap *staticBitmap = new wxStaticBitmap(&square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
+    wxStaticBitmap *staticBitmap = new wxStaticBitmap(
+        &square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
+    //staticBitmap->Bind(wxEVT_LEFT_DOWN, &Board::OnPawnPressed, this);
     wxBoxSizer *squareSizer = new wxBoxSizer(wxHORIZONTAL);
     squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
     square.SetSizer(squareSizer);
@@ -87,3 +89,9 @@ void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+
+void Board::OnPawnPressed(wxMouseEvent& event)
+{
+    this->RemovePawn(*(this->square_array[0][0]));
+    this->RemovePawn(*(this->square_array[0][5]));
+}
