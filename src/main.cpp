@@ -1,5 +1,7 @@
 #include <wx/wx.h>
 #include "Chess.h"
+#include "Board.h"
+#include "Globals.h"
 
 class MyApp : public wxApp
 {
@@ -7,7 +9,7 @@ public:
     virtual bool OnInit()
     {
         MyFrame *frame = new MyFrame();
-        Board *chessboard = new Board(frame);
+        chessboard = new Board(frame);
 
         Bishop *w_bishop_0 = new Bishop(2, 7, WHITE, chessboard->square_array[2][7]);
         Bishop *w_bishop_1 = new Bishop(5, 7, WHITE, chessboard->square_array[5][7]);

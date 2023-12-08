@@ -1,5 +1,5 @@
-#include "../include/Board.h"
-
+#include "Board.h"
+#include "Globals.h"
 //--------------------------------------------------------------//
 //                         Constructors                         //
 //--------------------------------------------------------------//
@@ -19,45 +19,6 @@ Board::Board(MyFrame *frame)
     this->panel = new wxPanel(frame, wxID_ANY);
     panel->SetSizer(this->chessboardSizer);
     this->Draw(this->chessboardSizer, this->square_array);
-}
-
-//--------------------------------------------------------------//
-//                         Move Pawn                            //
-//--------------------------------------------------------------//
-
-void Board::MovingChessPawn(int ox, int oy, int nx, int ny, const wxString &imagePath)
-{
-}
-// void Board::PutPawn(wxWindow &square, const wxString &imagePath)
-// {
-//     /* Create a bitmap for the image */
-//     wxBitmap bitmap;
-//     /* Load the image file into the bitmap */
-//     bitmap.LoadFile(imagePath, wxBITMAP_TYPE_PNG);
-//     wxStaticBitmap *staticBitmap = new wxStaticBitmap(
-//         &square, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize);
-//     //staticBitmap->Bind(wxEVT_LEFT_DOWN, &Board::OnPawnPressed, this);
-//     wxBoxSizer *squareSizer = new wxBoxSizer(wxHORIZONTAL);
-//     squareSizer->Add(staticBitmap, 1, wxALIGN_CENTER);
-//     square.SetSizer(squareSizer);
-// }
-
-//--------------------------------------------------------------//
-//                        Delete Pawn                           //
-//--------------------------------------------------------------//
-
-void Board::RemovePawn(wxWindow &square)
-{
-    // Get the sizer associated with the square
-    wxSizer *squareSizer = square.GetSizer();
-
-    if (squareSizer)
-    {
-        // Remove all items from the sizer
-        squareSizer->Clear(true); // true indicates that the items should be deleted
-        // Layout the square to reflect the changes
-        square.Layout();
-    }
 }
 
 //--------------------------------------------------------------//
@@ -83,33 +44,12 @@ void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
             }
             // Add the square to the grid sizer
             chessboardSizer->Add(square_array[x][y], 1, wxEXPAND | wxALL, 0);
+            square_array[x][y]->Bind(wxEVT_LEFT_DOWN, &Board::OnSquareClicked, this);
         }
     }
 }
 
-
-//--------------------------------------------------------------//
-//                       Init The Paws                          //
-//--------------------------------------------------------------//
-
-void Board::InitPaws()
+void Board::OnSquareClicked(wxMouseEvent &event)
 {
-    
-}
-
-
-
-
-
-
-
-
-
-//--------------------------------------------------------------
-//--------------------------------------------------------------
-
-void Board::OnPawnPressed(wxMouseEvent& event)
-{
-    this->RemovePawn(*(this->square_array[0][0]));
-    this->RemovePawn(*(this->square_array[0][5]));
+    tempSquare = static_cast<wxWindow*>(event.GetEventObject());
 }

@@ -34,19 +34,18 @@ public:
     ~Piece();
     Piece(int x, int y, Color color, wxWindow *square);
     void Put(int x, int y);
-    void Move(int o_x, int o_y, int n_x, int n_y);
+    void Move(int fromX, int fromY, int toX, int toY);
     void Delete(wxWindow &square);
     void OnPiecePressed(wxMouseEvent &event);
-
-
-private:
-protected:
     int m_x;
     int m_y;
     Color m_color;
     wxStaticBitmap *m_staticBitmap;
     wxWindow *m_square;
     wxString m_img;
+
+private:
+protected:
 };
 
 #endif
