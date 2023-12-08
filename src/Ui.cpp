@@ -8,7 +8,7 @@ Ui::~Ui()
 {
 }
 
-void Ui::Print(Piece *piece, int x, int y)
+void Ui::Print(Piece *piece)
 {
     /* Create a bitmap for the image */
     wxBitmap bitmap;
@@ -33,4 +33,5 @@ void Ui::Clean(wxWindow &square)
         /* Layout the square to reflect the changes */
         square.Layout();
     }
+    //delete squareSizer;
 }

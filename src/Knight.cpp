@@ -16,5 +16,5 @@ Knight::Knight(int x, int y, Color color, wxWindow *square) : Piece(x, y, color,
         m_img = CHESS_WHITE_KNIGHT;
     else
         m_img = CHESS_BLACK_KNIGHT;
-    this->Put(this->m_x, this->m_y);
+    this->Put();
 }

@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Globals.h"
+#include "Ui.h"
 //--------------------------------------------------------------//
 //                         Constructors                         //
 //--------------------------------------------------------------//
@@ -18,14 +19,14 @@ Board::Board(MyFrame *frame)
     /* Set the grid sizer as the sizer for the panel */
     this->panel = new wxPanel(frame, wxID_ANY);
     panel->SetSizer(this->chessboardSizer);
-    this->Draw(this->chessboardSizer, this->square_array);
+    this->Draw(this->chessboardSizer);
 }
 
 //--------------------------------------------------------------//
 //                       Draw The Board                         //
 //--------------------------------------------------------------//
 
-void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
+void Board::Draw(wxGridSizer *chessboardSizer)
 {
     // Populate the chessboard with squares
     for (int y = 0; y < 8; y++)
@@ -51,5 +52,11 @@ void Board::Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8])
 
 void Board::OnSquareClicked(wxMouseEvent &event)
 {
-    tempSquare = static_cast<wxWindow*>(event.GetEventObject());
+    tempSquare = static_cast<wxWindow *>(event.GetEventObject());
+    if (tempSquare != nullptr)
+    {
+        tempPiece->Move(tempSquare);
+    }
+    std::cout << "Square: " << tempSquare << std::endl;
 }
+

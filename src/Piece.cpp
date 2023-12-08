@@ -1,6 +1,9 @@
 #include "Piece.h"
 #include "Globals.h"
 #include "Ui.h"
+#include <thread>
+#include <chrono>
+#include <future>
 Piece::Piece()
 {
 }
@@ -11,9 +14,9 @@ Piece::Piece(int x, int y, Color color, wxWindow *square) : m_x(x), m_y(y), m_co
 {
 }
 
-void Piece::Put(int x, int y)
+void Piece::Put()
 {
-    Ui::Print(this, x, y);
+    Ui::Print(this);
 }
 
 void Piece::Delete(wxWindow &square)
@@ -21,15 +24,15 @@ void Piece::Delete(wxWindow &square)
     Ui::Clean(square);
 }
 
-void Piece::Move(int fromX, int fromY, int toX, int toY)
+void Piece::Move(wxWindow *square)
 {
+    this->Delete(*(this->m_square));
+    this->m_square = tempSquare;
+    this->Put();
 }
 
 void Piece::OnPiecePressed(wxMouseEvent &event)
 {
-     this->Delete(*(this->m_square));
-    // tempPiece = this;
-    // while (tempSquare == nullptr)
-    //     ;
-    // std::cout << "Hello" << std::endl;
+    tempPiece = this;
+    std::cout << "Piece: " << tempPiece << std::endl;
 }

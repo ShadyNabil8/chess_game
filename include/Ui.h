@@ -9,7 +9,7 @@ class Ui
 public:
     Ui();
     ~Ui();
-    static void Print(Piece *piece, int x, int y);
+    static void Print(Piece *piece);
     static void Clean(wxWindow &square);
     
 

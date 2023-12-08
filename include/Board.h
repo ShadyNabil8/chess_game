@@ -7,7 +7,7 @@ class Board
 private:
     wxGridSizer *chessboardSizer;
     wxPanel *panel;
-    void Draw(wxGridSizer *chessboardSizer, wxWindow *square_array[8][8]);
+    void Draw(wxGridSizer *chessboardSizer);
     void OnSquareClicked(wxMouseEvent &event);
 
 public:

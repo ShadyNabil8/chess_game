@@ -15,5 +15,5 @@ Pawn::Pawn(int x, int y, Color color, wxWindow *square) : Piece(x, y, color, squ
         m_img = CHESS_WHITE_PAWN;
     else
         m_img = CHESS_BLACK_PAWN;
-    this->Put(this->m_x, this->m_y);
+    this->Put();
 }

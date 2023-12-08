@@ -33,8 +33,8 @@ public:
     Piece();
     ~Piece();
     Piece(int x, int y, Color color, wxWindow *square);
-    void Put(int x, int y);
-    void Move(int fromX, int fromY, int toX, int toY);
+    void Put();
+    void Move(wxWindow *square);
     void Delete(wxWindow &square);
     void OnPiecePressed(wxMouseEvent &event);
     int m_x;
