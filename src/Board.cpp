@@ -1,5 +1,5 @@
 #include "Board.h"
-
+#include <iostream>
 //--------------------------------------------------------------//
 //                         Constructors                         //
 //--------------------------------------------------------------//
@@ -25,22 +25,19 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
 void Board ::OnPaint(wxPaintEvent &event)
 {
     // wxPaintDC dc(this);
-
     // Draw the chessboard
     for (int row = 0; row < boardSize; ++row)
     {
         for (int col = 0; col < boardSize; ++col)
         {
-            int x = col * squareSize;
-            int y = row * squareSize;
-
             if ((row + col) % 2 == 0)
-                DrawSquare(x, y, LIGHT);
+                DrawSquare(col, row, LIGHT, nullptr);
             else
-                DrawSquare(x, y, DARK);
+                DrawSquare(col, row, DARK, nullptr);
             // TODO: Draw chess pieces based on board[row][col]
         }
     }
+    wxBitmap map = wxBitmap("/home/shady/chess_game/images/w_knight.png", wxBITMAP_TYPE_PNG);
 
     // Highlight the selected square if any
     // if (selectedSquareRow != -1 && selectedSquareCol != -1)
@@ -82,8 +79,10 @@ void Board::OnLeftClick(wxMouseEvent &event)
     Refresh(); // Request a repaint
 }
 
-void Board::DrawSquare(int x, int y, Colour color)
+void Board::DrawSquare(int x, int y, Colour color, Piece *piece)
 {
+    x *= squareSize;
+    y *= squareSize;
     wxPaintDC dc(this);
     if (color == LIGHT)
     {
@@ -96,4 +95,12 @@ void Board::DrawSquare(int x, int y, Colour color)
         dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
     }
     dc.DrawRectangle(x, y, squareSize, squareSize);
+    wxBitmap map = wxBitmap("/home/shady/chess_game/images/w_knight.png", wxBITMAP_TYPE_PNG);
+    std::cout << map.GetWidth() << std::endl;
+    std::cout << map.GetHeight() << std::endl;
+    /* Add offset */
+    x += (squareSize - map.GetWidth()) / 2;
+    y += (squareSize - map.GetHeight()) / 2;
+
+    dc.DrawBitmap(map, x, y, true);
 }
