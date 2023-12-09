@@ -7,7 +7,6 @@ class Queen : public Piece
 {
 public:
     Queen();
-    Queen(int x, int y, Color color, wxWindow *square);
     ~Queen();
 
 private:

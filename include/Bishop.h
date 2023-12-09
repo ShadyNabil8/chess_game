@@ -7,7 +7,6 @@ class Bishop : public Piece
 {
 public:
     Bishop();
-    Bishop(int x, int y, Color color, wxWindow *square);
     ~Bishop();
 
 private:

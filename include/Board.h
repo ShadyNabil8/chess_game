@@ -1,20 +1,27 @@
 #ifndef _BOARD_H
 #define _BOARD_H
 #include <wx/wx.h>
-#include "Frame.h"
-class Board
+class Board : public wxPanel
 {
 private:
-    wxGridSizer *chessboardSizer;
-    wxPanel *panel;
-    void Draw(wxGridSizer *chessboardSizer);
-    void OnSquareClicked(wxMouseEvent &event);
+    int boardSize;
+    int squareSize;
+    int selectedSquareRow;
+    int selectedSquareCol;
+    int board[8][8];
+    enum Colour
+    {
+        DARK,
+        LIGHT
+    };
 
 public:
     Board();
-    Board(MyFrame *frame);
+    Board(wxFrame *parent);
+    void DrawSquare(int x, int y, Colour color);
+    void OnPaint(wxPaintEvent &event);
+    void OnLeftClick(wxMouseEvent &event);
     ~Board();
-    wxWindow *square_array[8][8];
 };
 
 #endif

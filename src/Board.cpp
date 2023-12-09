@@ -1,6 +1,5 @@
 #include "Board.h"
-#include "Globals.h"
-#include "Ui.h"
+
 //--------------------------------------------------------------//
 //                         Constructors                         //
 //--------------------------------------------------------------//
@@ -12,51 +11,89 @@ Board::Board()
 Board::~Board()
 {
 }
-Board::Board(MyFrame *frame)
+
+Board::Board(wxFrame *parent) : wxPanel(parent)
 {
-    /* Create a grid sizer for the chessboard */
-    this->chessboardSizer = new wxGridSizer(8, 8, 0, 0);
-    /* Set the grid sizer as the sizer for the panel */
-    this->panel = new wxPanel(frame, wxID_ANY);
-    panel->SetSizer(this->chessboardSizer);
-    this->Draw(this->chessboardSizer);
+    boardSize = 8;
+    squareSize = 100;
+    selectedSquareRow = -1;
+    selectedSquareCol = -1;
+    Bind(wxEVT_PAINT, &Board::OnPaint, this);
+    Bind(wxEVT_LEFT_DOWN, &Board::OnLeftClick, this);
 }
 
-//--------------------------------------------------------------//
-//                       Draw The Board                         //
-//--------------------------------------------------------------//
-
-void Board::Draw(wxGridSizer *chessboardSizer)
+void Board ::OnPaint(wxPaintEvent &event)
 {
-    // Populate the chessboard with squares
-    for (int y = 0; y < 8; y++)
+    // wxPaintDC dc(this);
+
+    // Draw the chessboard
+    for (int row = 0; row < boardSize; ++row)
     {
-        for (int x = 0; x < 8; x++)
+        for (int col = 0; col < boardSize; ++col)
         {
-            // wxWindow *square = new wxWindow(panel, wxID_ANY);
-            this->square_array[x][y] = new wxWindow(panel, wxID_ANY);
-            if ((x + y) % 2 == 0)
-            {
-                square_array[x][y]->SetBackgroundColour(wxColour(92, 50, 48, 255)); // Set the background color of the square
-            }
+            int x = col * squareSize;
+            int y = row * squareSize;
+
+            if ((row + col) % 2 == 0)
+                DrawSquare(x, y, LIGHT);
             else
-            {
-                square_array[x][y]->SetBackgroundColour(wxColour(120, 73, 57, 255)); // Set the background color of the square
-            }
-            // Add the square to the grid sizer
-            chessboardSizer->Add(square_array[x][y], 1, wxEXPAND | wxALL, 0);
-            square_array[x][y]->Bind(wxEVT_LEFT_DOWN, &Board::OnSquareClicked, this);
+                DrawSquare(x, y, DARK);
+            // TODO: Draw chess pieces based on board[row][col]
         }
     }
+
+    // Highlight the selected square if any
+    // if (selectedSquareRow != -1 && selectedSquareCol != -1)
+    // {
+    //     dc.SetBrush(wxBrush(wxColour(53, 53, 53))); // Semi-transparent green
+    //     dc.DrawRectangle(selectedSquareCol * squareSize, selectedSquareRow * squareSize, squareSize, squareSize);
+    // }
+
+    // Ensure the paint event is processed
+    event.Skip();
 }
 
-void Board::OnSquareClicked(wxMouseEvent &event)
+void Board::OnLeftClick(wxMouseEvent &event)
 {
-    tempSquare = static_cast<wxWindow *>(event.GetEventObject());
-    if (tempSquare != nullptr)
+    int mouseX = event.GetX();
+    int mouseY = event.GetY();
+
+    int clickedCol = mouseX / squareSize;
+    int clickedRow = mouseY / squareSize;
+
+    if (selectedSquareRow == -1 && selectedSquareCol == -1)
     {
-        tempPiece->Move(tempSquare);
+        // No square selected yet, highlight the clicked square
+        selectedSquareRow = clickedRow;
+        selectedSquareCol = clickedCol;
     }
-    std::cout << "Square: " << tempSquare << std::endl;
+    else
+    {
+        // Move the piece or perform other actions as needed
+        // You may want to update the board and redraw the chessboard
+        // based on the selected and clicked squares
+        // ...
+
+        // Reset the selected square
+        selectedSquareRow = -1;
+        selectedSquareCol = -1;
+    }
+
+    Refresh(); // Request a repaint
 }
 
+void Board::DrawSquare(int x, int y, Colour color)
+{
+    wxPaintDC dc(this);
+    if (color == LIGHT)
+    {
+        dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255))); // White square
+        dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
+    }
+    else
+    {
+        dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255))); // White square
+        dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
+    }
+    dc.DrawRectangle(x, y, squareSize, squareSize);
+}

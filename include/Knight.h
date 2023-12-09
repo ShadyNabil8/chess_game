@@ -7,7 +7,6 @@ class Knight : public Piece
 {
 public:
     Knight();
-    Knight(int x, int y, Color color, wxWindow *square);
     ~Knight();
 
 private:

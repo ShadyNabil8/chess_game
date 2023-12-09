@@ -32,17 +32,6 @@ class Piece
 public:
     Piece();
     ~Piece();
-    Piece(int x, int y, Color color, wxWindow *square);
-    void Put();
-    void Move(wxWindow *square);
-    void Delete(wxWindow &square);
-    void OnPiecePressed(wxMouseEvent &event);
-    int m_x;
-    int m_y;
-    Color m_color;
-    wxStaticBitmap *m_staticBitmap;
-    wxWindow *m_square;
-    wxString m_img;
 
 private:
 protected:
