@@ -22,10 +22,7 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     for (int row = 0; row < boardSize; row++)
     {
         for (int col = 0; col < boardSize; col++)
-        {
-            board[row][col] = 0;
             pieces[row][col] = nullptr;
-        }
     }
     Bind(wxEVT_PAINT, &Board::OnPaint, this);
     Bind(wxEVT_LEFT_DOWN, &Board::OnLeftClick, this);
@@ -66,19 +63,8 @@ void Board ::OnPaint(wxPaintEvent &event)
                 DrawSquare(col, row, LIGHT, pieces[col][row]);
             else
                 DrawSquare(col, row, DARK, pieces[col][row]);
-            // TODO: Draw chess pieces based on board[row][col]
         }
     }
-    // Highlight the selected square if any
-    // if (selectedSquareRow != -1 && selectedSquareCol != -1)
-    // {
-    //     dc.SetBrush(wxBrush(wxColour(53, 53, 53))); // Semi-transparent green
-    //     dc.DrawRectangle(selectedSquareCol * squareSize, selectedSquareRow * squareSize, squareSize, squareSize);
-    // }
-    // if(selectedSquareCol != -1 && selectedSquareRow != -1)
-    // {
-    //     DrawSquare(selectedSquareCol, selectedSquareRow, DARK, nullptr);
-    // }
     // Ensure the paint event is processed
     event.Skip();
 }
@@ -102,11 +88,6 @@ void Board::OnLeftClick(wxMouseEvent &event)
     else
     {
         MovePiece(selectedSquareCol, selectedSquareRow, clickedCol, clickedRow);
-        //  Move the piece or perform other actions as needed
-        //  You may want to update the board and redraw the chessboard
-        //  based on the selected and clicked squares
-        //  ...
-
         // Reset the selected square
         selectedSquareRow = -1;
         selectedSquareCol = -1;
@@ -120,38 +101,16 @@ void Board::DrawSquare(int x, int y, Colour color, Piece *piece)
     wxPaintDC dc(this);
     if (x == selectedSquareCol && y == selectedSquareRow)
     {
-
-        dc.SetBrush(wxBrush(wxColour(135, 62, 35)));
-        dc.SetPen(wxPen(wxColour(135, 62, 35), 0, wxPENSTYLE_TRANSPARENT));
+        HighlightSquare(dc, x * squareSize, y * squareSize);
     }
     else
     {
-
         if (color == LIGHT)
-        {
-            dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255)));
-            dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
-        }
+            DrawLightSquare(dc, x * squareSize, y * squareSize);
         else
-        {
-            dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255)));
-            dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
-        }
+            DrawDarkSquare(dc, x * squareSize, y * squareSize);
     }
-
-    x *= squareSize;
-    y *= squareSize;
-    dc.DrawRectangle(x, y, squareSize, squareSize);
-    
-    if (piece != nullptr)
-    {
-        if (piece->GetImage() != nullptr)
-        { /* Add offset */
-            x += (squareSize - piece->GetImage()->GetWidth()) / 2;
-            y += (squareSize - piece->GetImage()->GetHeight()) / 2;
-            dc.DrawBitmap(*(piece->GetImage()), x, y, false);
-        }
-    }
+    DrawPiece(x * squareSize, y * squareSize, piece, dc);
 }
 
 bool Board::IsEmptySquare(int x, int y)
@@ -181,6 +140,36 @@ void Board::MovePiece(int old_x, int old_y, int new_x, int new_y)
     pieces[old_x][old_y] = nullptr;
 }
 
-void Board::HighlightPiece(int x, int y)
+void Board::DrawLightSquare(wxPaintDC &dc, int x, int y)
 {
+    dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255)));
+    dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
+    dc.DrawRectangle(x, y, squareSize, squareSize);
+}
+void Board::DrawDarkSquare(wxPaintDC &dc, int x, int y)
+{
+
+    dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255)));
+    dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
+    dc.DrawRectangle(x, y, squareSize, squareSize);
+}
+
+void Board::HighlightSquare(wxPaintDC &dc, int x, int y)
+{
+    dc.SetBrush(wxBrush(wxColour(30, 129, 176)));
+    dc.SetPen(wxPen(wxColour(30, 129, 176), 0, wxPENSTYLE_TRANSPARENT));
+    dc.DrawRectangle(x, y, squareSize, squareSize);
+}
+
+void Board::DrawPiece(int x, int y, Piece *piece, wxPaintDC &dc)
+{
+    if (piece != nullptr)
+    {
+        if (piece->GetImage() != nullptr)
+        { /* Add offset */
+            x += (squareSize - piece->GetImage()->GetWidth()) / 2;
+            y += (squareSize - piece->GetImage()->GetHeight()) / 2;
+            dc.DrawBitmap(*(piece->GetImage()), x, y, false);
+        }
+    }
 }

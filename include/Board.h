@@ -20,19 +20,21 @@ private:
     int squareSize;
     int selectedSquareRow;
     int selectedSquareCol;
-    int board[8][8];
 
 public:
     Piece *pieces[8][8];
     Board();
     Board(wxFrame *parent);
     void DrawSquare(int x, int y, Colour color, Piece *piece);
+    void DrawPiece(int x, int y, Piece *piece, wxPaintDC &dc);
     void OnPaint(wxPaintEvent &event);
     void OnLeftClick(wxMouseEvent &event);
     bool IsEmptySquare(int x, int y);
     void CleanSquare(int new_x, int new_y);
     void MovePiece(int old_x, int old_y, int new_x, int new_y);
-    void HighlightPiece(int x, int y);
+    void DrawLightSquare(wxPaintDC &dc, int x, int y);
+    void DrawDarkSquare(wxPaintDC &dc, int x, int y);
+    void HighlightSquare(wxPaintDC &dc, int x, int y);
     ~Board();
 };
 
