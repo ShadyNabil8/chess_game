@@ -32,6 +32,7 @@ public:
     bool IsEmptySquare(int x, int y);
     void CleanSquare(int new_x, int new_y);
     void MovePiece(int old_x, int old_y, int new_x, int new_y);
+    void HighlightPiece(int x, int y);
     ~Board();
 };
 

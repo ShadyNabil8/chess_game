@@ -57,7 +57,6 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
 
 void Board ::OnPaint(wxPaintEvent &event)
 {
-    // sleep(5);
     //  Draw the chessboard
     for (int row = 0; row < boardSize; row++)
     {
@@ -76,7 +75,10 @@ void Board ::OnPaint(wxPaintEvent &event)
     //     dc.SetBrush(wxBrush(wxColour(53, 53, 53))); // Semi-transparent green
     //     dc.DrawRectangle(selectedSquareCol * squareSize, selectedSquareRow * squareSize, squareSize, squareSize);
     // }
-
+    // if(selectedSquareCol != -1 && selectedSquareRow != -1)
+    // {
+    //     DrawSquare(selectedSquareCol, selectedSquareRow, DARK, nullptr);
+    // }
     // Ensure the paint event is processed
     event.Skip();
 }
@@ -115,28 +117,39 @@ void Board::OnLeftClick(wxMouseEvent &event)
 
 void Board::DrawSquare(int x, int y, Colour color, Piece *piece)
 {
-    x *= squareSize;
-    y *= squareSize;
     wxPaintDC dc(this);
-    if (color == LIGHT)
+    if (x == selectedSquareCol && y == selectedSquareRow)
     {
-        dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255)));
-        dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
+
+        dc.SetBrush(wxBrush(wxColour(135, 62, 35)));
+        dc.SetPen(wxPen(wxColour(135, 62, 35), 0, wxPENSTYLE_TRANSPARENT));
     }
     else
     {
-        dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255)));
-        dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
-    }
-    dc.DrawRectangle(x, y, squareSize, squareSize);
 
+        if (color == LIGHT)
+        {
+            dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255)));
+            dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
+        }
+        else
+        {
+            dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255)));
+            dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
+        }
+    }
+
+    x *= squareSize;
+    y *= squareSize;
+    dc.DrawRectangle(x, y, squareSize, squareSize);
+    
     if (piece != nullptr)
     {
         if (piece->GetImage() != nullptr)
         { /* Add offset */
             x += (squareSize - piece->GetImage()->GetWidth()) / 2;
             y += (squareSize - piece->GetImage()->GetHeight()) / 2;
-            dc.DrawBitmap(*(piece->GetImage()), x, y, true);
+            dc.DrawBitmap(*(piece->GetImage()), x, y, false);
         }
     }
 }
@@ -166,4 +179,8 @@ void Board::MovePiece(int old_x, int old_y, int new_x, int new_y)
     CleanSquare(new_x, new_y);
     pieces[new_x][new_y] = pieces[old_x][old_y];
     pieces[old_x][old_y] = nullptr;
+}
+
+void Board::HighlightPiece(int x, int y)
+{
 }
