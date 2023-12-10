@@ -48,12 +48,11 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     pieces[6][7] = new Knight(Piece::LIGHT);
     pieces[7][7] = new Rook(Piece::LIGHT);
 
-    for(int i = 0 ; i < boardSize ; i++)
+    for (int i = 0; i < boardSize; i++)
     {
         pieces[i][1] = new Pawn(Piece::DARK);
         pieces[i][6] = new Pawn(Piece::LIGHT);
     }
-        
 }
 
 void Board ::OnPaint(wxPaintEvent &event)
@@ -89,6 +88,7 @@ void Board::OnLeftClick(wxMouseEvent &event)
 
     int clickedCol = mouseX / squareSize;
     int clickedRow = mouseY / squareSize;
+    // std::cout << "(" << clickedCol << "," << clickedRow << ")" << std::endl;
     if (selectedSquareRow == -1 && selectedSquareCol == -1)
     {
         // No square selected yet, highlight the clicked square
@@ -97,13 +97,11 @@ void Board::OnLeftClick(wxMouseEvent &event)
     }
     else
     {
-
-        pieces[clickedCol][clickedRow] = pieces[selectedSquareCol][selectedSquareRow];
-        pieces[selectedSquareCol][selectedSquareRow] = nullptr;
-        // Move the piece or perform other actions as needed
-        // You may want to update the board and redraw the chessboard
-        // based on the selected and clicked squares
-        // ...
+        MovePiece(selectedSquareCol, selectedSquareRow, clickedCol, clickedRow);
+        //  Move the piece or perform other actions as needed
+        //  You may want to update the board and redraw the chessboard
+        //  based on the selected and clicked squares
+        //  ...
 
         // Reset the selected square
         selectedSquareRow = -1;
@@ -139,4 +137,31 @@ void Board::DrawSquare(int x, int y, Colour color, Piece *piece)
             dc.DrawBitmap(*(piece->GetImage()), x, y, true);
         }
     }
+}
+
+bool Board::IsEmptySquare(int x, int y)
+{
+    if (pieces[x][y] == nullptr)
+        return true;
+    else
+        return false;
+}
+
+void Board::CleanSquare(int old_x, int old_y, int new_x, int new_y)
+{
+    if (IsEmptySquare(new_x, new_y))
+    {
+        pieces[new_x][new_y] = nullptr;
+    }
+    else
+    {
+        delete pieces[new_x][new_y];
+        pieces[new_x][new_y] = nullptr;
+    }
+}
+void Board::MovePiece(int old_x, int old_y, int new_x, int new_y)
+{
+    CleanSquare(old_x, old_y, new_x, new_y);
+    pieces[new_x][new_y] = pieces[old_x][old_y]; 
+    pieces[old_x][old_y] = nullptr;
 }
