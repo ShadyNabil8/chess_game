@@ -97,7 +97,9 @@ void Board::OnLeftClick(wxMouseEvent &event)
     }
     else
     {
+
         pieces[clickedCol][clickedRow] = pieces[selectedSquareCol][selectedSquareRow];
+        pieces[selectedSquareCol][selectedSquareRow] = nullptr;
         // Move the piece or perform other actions as needed
         // You may want to update the board and redraw the chessboard
         // based on the selected and clicked squares
