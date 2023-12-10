@@ -7,6 +7,7 @@ class Queen : public Piece
 {
 public:
     Queen();
+    Queen(Colour colour);
     ~Queen();
 
 private:

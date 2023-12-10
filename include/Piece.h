@@ -24,12 +24,22 @@
 class Piece
 {
 public:
+    enum Colour
+    {
+        DARK,
+        LIGHT
+    };
     Piece();
+    Piece(Colour colour);
     ~Piece();
-
-private:
+    wxBitmap *GetImage();
+    void SetImage(wxBitmap *image);
 
 protected:
+    wxBitmap *m_image;
+    Colour m_colour;
+
+private:
 };
 
 #endif

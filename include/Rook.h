@@ -7,6 +7,7 @@ class Rook : public Piece
 {
 public:
     Rook();
+    Rook(Colour colour);
     ~Rook();
 
 private:

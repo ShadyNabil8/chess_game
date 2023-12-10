@@ -7,6 +7,7 @@ class King : public Piece
 {
 public:
     King();
+    King(Colour colour);
     ~King();
 
 private:

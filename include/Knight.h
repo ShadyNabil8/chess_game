@@ -7,6 +7,7 @@ class Knight : public Piece
 {
 public:
     Knight();
+    Knight(Colour colour);
     ~Knight();
 
 private:

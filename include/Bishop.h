@@ -7,6 +7,7 @@ class Bishop : public Piece
 {
 public:
     Bishop();
+    Bishop(Colour colour);
     ~Bishop();
 
 private:

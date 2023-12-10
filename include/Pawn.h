@@ -7,6 +7,7 @@ class Pawn : public Piece
 {
 public:
     Pawn();
+    Pawn(Colour colour);
     ~Pawn();
 
 private:

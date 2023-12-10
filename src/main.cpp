@@ -8,8 +8,9 @@ class MyApp : public wxApp
 public:
     virtual bool OnInit()
     {
-        ::wxInitAllImageHandlers();
+        
         MyFrame *frame = new MyFrame();
+        ::wxInitAllImageHandlers();
         // chessboard = new Board(frame);
 
         // Bishop *w_bishop_0 = new Bishop(2, 7, WHITE, chessboard->square_array[2][7]);
