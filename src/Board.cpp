@@ -88,12 +88,14 @@ void Board::OnLeftClick(wxMouseEvent &event)
 
     int clickedCol = mouseX / squareSize;
     int clickedRow = mouseY / squareSize;
-    // std::cout << "(" << clickedCol << "," << clickedRow << ")" << std::endl;
     if (selectedSquareRow == -1 && selectedSquareCol == -1)
     {
-        // No square selected yet, highlight the clicked square
-        selectedSquareRow = clickedRow;
-        selectedSquareCol = clickedCol;
+        if (!IsEmptySquare(clickedCol, clickedRow))
+        {
+            // No square selected yet, highlight the clicked square
+            selectedSquareRow = clickedRow;
+            selectedSquareCol = clickedCol;
+        }
     }
     else
     {
@@ -147,7 +149,7 @@ bool Board::IsEmptySquare(int x, int y)
         return false;
 }
 
-void Board::CleanSquare(int old_x, int old_y, int new_x, int new_y)
+void Board::CleanSquare(int new_x, int new_y)
 {
     if (IsEmptySquare(new_x, new_y))
     {
@@ -161,7 +163,7 @@ void Board::CleanSquare(int old_x, int old_y, int new_x, int new_y)
 }
 void Board::MovePiece(int old_x, int old_y, int new_x, int new_y)
 {
-    CleanSquare(old_x, old_y, new_x, new_y);
-    pieces[new_x][new_y] = pieces[old_x][old_y]; 
+    CleanSquare(new_x, new_y);
+    pieces[new_x][new_y] = pieces[old_x][old_y];
     pieces[old_x][old_y] = nullptr;
 }

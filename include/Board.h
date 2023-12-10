@@ -30,7 +30,7 @@ public:
     void OnPaint(wxPaintEvent &event);
     void OnLeftClick(wxMouseEvent &event);
     bool IsEmptySquare(int x, int y);
-    void CleanSquare(int old_x, int old_y, int new_x, int new_y);
+    void CleanSquare(int new_x, int new_y);
     void MovePiece(int old_x, int old_y, int new_x, int new_y);
     ~Board();
 };
