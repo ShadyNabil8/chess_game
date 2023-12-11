@@ -26,16 +26,16 @@ public:
     Piece *pieces[8][8];
     Board();
     Board(wxFrame *parent);
-    void DrawSquare(int x, int y, Colour color, Piece *piece);
-    void DrawPiece(int x, int y, Piece *piece, wxPaintDC &dc);
+    void DrawSquare(const Point &point, Colour color, Piece *piece);
+    void DrawPiece(const Point &point, Piece *piece, wxPaintDC &dc);
     void OnPaint(wxPaintEvent &event);
     void OnLeftClick(wxMouseEvent &event);
-    bool IsEmptySquare(Point point);
-    void CleanSquare(Point point);
-    void MovePiece(Point oldpoint, Point newpoint);
-    void DrawLightSquare(wxPaintDC &dc, int x, int y);
-    void DrawDarkSquare(wxPaintDC &dc, int x, int y);
-    void HighlightSquare(wxPaintDC &dc, int x, int y);
+    bool IsEmptySquare(const Point &point);
+    void CleanSquare(const Point &point);
+    void MovePiece(const Point &oldpoint, const Point &newpoint);
+    void DrawLightSquare(wxPaintDC &dc, const Point &point);
+    void DrawDarkSquare(wxPaintDC &dc, const Point &point);
+    void HighlightSquare(wxPaintDC &dc, const Point &point);
     ~Board();
 };
 

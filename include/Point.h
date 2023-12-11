@@ -9,8 +9,10 @@ public:
     Point();
     Point(int x, int y);
     ~Point();
-    int GetX();
-    int GetY();
+    int GetX() const;
+    int GetY() const;
+    void SetX(int x);
+    void SetY(int y);
 
 private:
     int m_x;
