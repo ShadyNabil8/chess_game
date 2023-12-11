@@ -75,7 +75,7 @@ void Board::OnLeftClick(wxMouseEvent &event)
     int clickedRow = mouseY / squareSize;
     if (selectedSquareRow == -1 && selectedSquareCol == -1)
     {
-        if (!IsEmptySquare(clickedCol, clickedRow))
+        if (!IsEmptySquare(Point(clickedCol, clickedRow)))
         {
             // No square selected yet, highlight the clicked square
             selectedSquareRow = clickedRow;
@@ -84,7 +84,7 @@ void Board::OnLeftClick(wxMouseEvent &event)
     }
     else
     {
-        MovePiece(selectedSquareCol, selectedSquareRow, clickedCol, clickedRow);
+        MovePiece(Point(selectedSquareCol, selectedSquareRow), Point(clickedCol, clickedRow));
         // Reset the selected square
         selectedSquareRow = -1;
         selectedSquareCol = -1;
@@ -110,31 +110,31 @@ void Board::DrawSquare(int x, int y, Colour color, Piece *piece)
     DrawPiece(x * squareSize, y * squareSize, piece, dc);
 }
 
-bool Board::IsEmptySquare(int x, int y)
+bool Board::IsEmptySquare(Point point)
 {
-    if (pieces[x][y] == nullptr)
+    if (pieces[point.GetX()][point.GetY()] == nullptr)
         return true;
     else
         return false;
 }
 
-void Board::CleanSquare(int new_x, int new_y)
+void Board::CleanSquare(Point point)
 {
-    if (IsEmptySquare(new_x, new_y))
+    if (IsEmptySquare(point))
     {
-        pieces[new_x][new_y] = nullptr;
+        pieces[point.GetX()][point.GetY()] = nullptr;
     }
     else
     {
-        delete pieces[new_x][new_y];
-        pieces[new_x][new_y] = nullptr;
+        delete pieces[point.GetX()][point.GetY()];
+        pieces[point.GetX()][point.GetY()] = nullptr;
     }
 }
-void Board::MovePiece(int old_x, int old_y, int new_x, int new_y)
+void Board::MovePiece(Point oldpoint, Point newpoint)
 {
-    CleanSquare(new_x, new_y);
-    pieces[new_x][new_y] = pieces[old_x][old_y];
-    pieces[old_x][old_y] = nullptr;
+    CleanSquare(newpoint);
+    pieces[newpoint.GetX()][newpoint.GetY()] = pieces[oldpoint.GetX()][oldpoint.GetY()];
+    pieces[oldpoint.GetX()][oldpoint.GetY()] = nullptr;
 }
 
 void Board::DrawLightSquare(wxPaintDC &dc, int x, int y)

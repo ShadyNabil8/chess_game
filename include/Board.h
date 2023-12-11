@@ -30,9 +30,9 @@ public:
     void DrawPiece(int x, int y, Piece *piece, wxPaintDC &dc);
     void OnPaint(wxPaintEvent &event);
     void OnLeftClick(wxMouseEvent &event);
-    bool IsEmptySquare(int x, int y);
-    void CleanSquare(int new_x, int new_y);
-    void MovePiece(int old_x, int old_y, int new_x, int new_y);
+    bool IsEmptySquare(Point point);
+    void CleanSquare(Point point);
+    void MovePiece(Point oldpoint, Point newpoint);
     void DrawLightSquare(wxPaintDC &dc, int x, int y);
     void DrawDarkSquare(wxPaintDC &dc, int x, int y);
     void HighlightSquare(wxPaintDC &dc, int x, int y);
