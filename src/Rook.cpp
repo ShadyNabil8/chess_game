@@ -17,3 +17,6 @@ Rook::Rook(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_ROOK, wxBITMAP_TYPE_PNG);
 }
+std::vector<Point> Rook::GetLegalMoves(const Point &point) const
+{
+}

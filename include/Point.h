@@ -2,7 +2,6 @@
 #define POINT_H
 
 #pragma once
-#include "Piece.h"
 class Point
 {
 public:

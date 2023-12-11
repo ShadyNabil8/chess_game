@@ -5,8 +5,10 @@
 
 #include <wx/wx.h>
 #include <iostream>
-#define str std::string
+#include "Point.h"
+#include <vector>
 
+#define str std::string
 #define CHESS_IMAGES_DIR str("/home/shady/chess_game/images/")
 #define CHESS_WHITE_BISHOP CHESS_IMAGES_DIR + str("w_bishop.png")
 #define CHESS_BLACK_BISHOP (CHESS_IMAGES_DIR + str("b_bishop.png"))
@@ -38,7 +40,7 @@ public:
 protected:
     wxBitmap *m_image;
     Colour m_colour;
-
+    virtual std::vector<Point> GetLegalMoves(const Point &point) const = 0;
 private:
 };
 

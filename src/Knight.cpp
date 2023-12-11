@@ -16,3 +16,7 @@ Knight::Knight(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_KNIGHT, wxBITMAP_TYPE_PNG);
 }
+std::vector<Point> Knight::GetLegalMoves(const Point &point) const
+{
+}
+

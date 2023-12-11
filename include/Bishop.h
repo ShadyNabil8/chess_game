@@ -3,12 +3,14 @@
 
 #pragma once
 #include "Piece.h"
+#include "Point.h"
 class Bishop : public Piece
 {
 public:
     Bishop();
     Bishop(Colour colour);
     ~Bishop();
+    std::vector<Point> GetLegalMoves(const Point &point) const;
 
 private:
 };

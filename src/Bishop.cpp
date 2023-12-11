@@ -15,3 +15,7 @@ Bishop::Bishop(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_BISHOP, wxBITMAP_TYPE_PNG);
 }
+
+std::vector<Point> Bishop::GetLegalMoves(const Point &point) const
+{
+}
