@@ -40,7 +40,7 @@ public:
 protected:
     wxBitmap *m_image;
     Colour m_colour;
-    virtual std::vector<Point> GetLegalMoves(const Point &point) const = 0;
+    virtual std::vector<Point> GetLegalMoves(const Point &point,Piece* chessmatrix[8][8]) const = 0;
 private:
 };
 

@@ -10,7 +10,7 @@ public:
     Queen();
     Queen(Colour colour);
     ~Queen();
-    std::vector<Point> GetLegalMoves(const Point &point) const;
+    std::vector<Point> GetLegalMoves(const Point &point,Piece* chessmatrix[8][8]) const;
 
 private:
 };

@@ -16,6 +16,6 @@ King::King(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_KING, wxBITMAP_TYPE_PNG);
 }
-std::vector<Point> King::GetLegalMoves(const Point &point) const
+std::vector<Point> King::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8]) const
 {
 }
