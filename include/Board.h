@@ -8,6 +8,7 @@
 #include "Knight.h"
 #include "Rook.h"
 #include "Pawn.h"
+#include "Point.h"
 class Board : public wxPanel
 {
 private:
