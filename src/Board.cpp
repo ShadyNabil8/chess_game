@@ -104,7 +104,8 @@ void Board::OnLeftClick(wxMouseEvent &event)
 void Board::DrawSquare(const Point &point, Colour color, Piece *piece)
 {
     wxPaintDC dc(this);
-    if (point.GetX() == selectedSquareCol && point.GetY() == selectedSquareRow)
+    Point selected = Point(selectedSquareCol, selectedSquareRow);
+    if (point == selected)
     {
         HighlightSquare(dc, point);
     }
@@ -147,22 +148,22 @@ void Board::MovePiece(const Point &oldpoint, const Point &newpoint)
 
 void Board::DrawLightSquare(wxPaintDC &dc, const Point &point)
 {
-    dc.SetBrush(wxBrush(wxColour(238, 239, 211, 255)));
-    dc.SetPen(wxPen(wxColour(238, 239, 211, 255), 0, wxPENSTYLE_TRANSPARENT));
+    dc.SetBrush(wxBrush(wxColour(245, 227, 207, 255)));
+    dc.SetPen(wxPen(wxColour(245, 227, 207, 255), 0, wxPENSTYLE_TRANSPARENT));
     dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
 }
 void Board::DrawDarkSquare(wxPaintDC &dc, const Point &point)
 {
 
-    dc.SetBrush(wxBrush(wxColour(119, 150, 87, 255)));
-    dc.SetPen(wxPen(wxColour(119, 150, 87, 255), 0, wxPENSTYLE_TRANSPARENT));
+    dc.SetBrush(wxBrush(wxColour(209, 134, 88, 255)));
+    dc.SetPen(wxPen(wxColour(209, 134, 88, 255), 0, wxPENSTYLE_TRANSPARENT));
     dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
 }
 
 void Board::HighlightSquare(wxPaintDC &dc, const Point &point)
 {
-    dc.SetBrush(wxBrush(wxColour(30, 129, 176)));
-    dc.SetPen(wxPen(wxColour(30, 129, 176), 0, wxPENSTYLE_TRANSPARENT));
+    dc.SetBrush(wxBrush(wxColour(158, 90, 78)));
+    dc.SetPen(wxPen(wxColour(158, 90, 78), 0, wxPENSTYLE_TRANSPARENT));
     dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
 }
 

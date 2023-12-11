@@ -24,6 +24,7 @@ private:
 
 public:
     Piece *pieces[8][8];
+    int highlight_matrix[8][8];
     Board();
     Board(wxFrame *parent);
     void DrawSquare(const Point &point, Colour color, Piece *piece);

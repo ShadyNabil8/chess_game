@@ -16,6 +16,6 @@ Bishop::Bishop(Colour colour) : Piece(colour)
         this->m_image = new wxBitmap(CHESS_WHITE_BISHOP, wxBITMAP_TYPE_PNG);
 }
 
-std::vector<Point> Bishop::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8]) const
+std::vector<Point> Bishop::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],int highlight_matrix[8][8]) const
 {
 }
