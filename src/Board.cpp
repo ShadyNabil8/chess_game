@@ -89,7 +89,10 @@ void Board::OnLeftClick(wxMouseEvent &event)
     {
         Point oldpoint = Point(selectedSquareCol, selectedSquareRow);
         Point newpoint = Point(clickedCol, clickedRow);
-        MovePiece(oldpoint, newpoint);
+        /* Ensure that the same piece will not eat itself :) */
+        if (oldpoint != newpoint)
+            MovePiece(oldpoint, newpoint);
+
         // Reset the selected square
         selectedSquareRow = -1;
         selectedSquareCol = -1;

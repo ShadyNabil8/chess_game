@@ -26,3 +26,17 @@ void Point::SetY(int y)
 {
     this->m_y = y;
 }
+bool Point::operator==(const Point &point) const
+{
+    if (this->m_x == point.GetX() && this->m_y == point.GetY())
+        return true;
+    else
+        return false;
+}
+bool Point::operator!=(const Point &point) const
+{
+    if (this->m_x == point.GetX() && this->m_y == point.GetY())
+        return false;
+    else
+        return true;
+}
