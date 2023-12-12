@@ -14,13 +14,15 @@ class Board : public wxPanel
 private:
     enum Colour
     {
-        DARK,
-        LIGHT
+        DARK = 0,
+        LIGHT,
+        HIGHLIGHT
     };
     int boardSize;
     int squareSize;
     int selectedSquareRow;
     int selectedSquareCol;
+    wxColour colours[3];
 
 public:
     Piece *pieces[8][8];

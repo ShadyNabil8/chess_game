@@ -16,6 +16,10 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     squareSize = 100;
     selectedSquareRow = -1;
     selectedSquareCol = -1;
+    colours[DARK] = wxColour(209, 134, 88, 255);
+    colours[LIGHT] = wxColour(245, 227, 207, 255);
+    colours[HIGHLIGHT] = wxColour(158, 90, 78);
+
     for (int row = 0; row < boardSize; row++)
     {
         for (int col = 0; col < boardSize; col++)
@@ -57,6 +61,7 @@ void Board ::OnPaint(wxPaintEvent &event)
     //  Draw the chessboard
     wxPaintDC dc(this);
     Point point;
+    Colour sqrcolour;
     for (int row = 0; row < boardSize; row++)
     {
         point.SetY(row);
@@ -65,15 +70,19 @@ void Board ::OnPaint(wxPaintEvent &event)
             point.SetX(col);
             if (IsLegalMove(point))
             {
-                HighlightSquare(dc, point);
+                // HighlightSquare(dc, point);
+                sqrcolour = HIGHLIGHT;
             }
             else
             {
                 if ((row + col) % 2 == 0)
-                    DrawSquare(point, LIGHT, pieces[col][row]);
+                    sqrcolour = LIGHT;
+                // DrawSquare(point, LIGHT, pieces[col][row]);
                 else
-                    DrawSquare(point, DARK, pieces[col][row]);
+                    sqrcolour = DARK;
+                // DrawSquare(point, DARK, pieces[col][row]);
             }
+            DrawSquare(point, sqrcolour, pieces[col][row]);
         }
     }
     // Ensure the paint event is processed
@@ -118,17 +127,27 @@ void Board::DrawSquare(const Point &point, Colour color, Piece *piece)
 {
     wxPaintDC dc(this);
     Point selected = Point(selectedSquareCol, selectedSquareRow);
-    if (point == selected)
-    {
-        HighlightSquare(dc, point);
-    }
-    else
-    {
-        if (color == LIGHT)
-            DrawLightSquare(dc, point);
-        else
-            DrawDarkSquare(dc, point);
-    }
+    dc.SetBrush(wxBrush(colours[color]));
+    dc.SetPen(wxPen(colours[color], 0, wxPENSTYLE_TRANSPARENT));
+    dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
+    // if (point == selected)
+    // {
+    //     HighlightSquare(dc, point);
+    // }
+    // else
+    // {
+
+    //     if (color == LIGHT)
+    //     {
+    //         DrawLightSquare(dc, point);
+    //     }
+    //     // DrawLightSquare(dc, point);
+    //     else
+    //     {
+    //         DrawDarkSquare(dc, point);
+    //     }
+    //     // DrawDarkSquare(dc, point);
+    // }
     DrawPiece(point, piece, dc);
 }
 
@@ -168,8 +187,8 @@ void Board::DrawLightSquare(wxPaintDC &dc, const Point &point)
 void Board::DrawDarkSquare(wxPaintDC &dc, const Point &point)
 {
 
-    dc.SetBrush(wxBrush(wxColour(209, 134, 88, 255)));
-    dc.SetPen(wxPen(wxColour(209, 134, 88, 255), 0, wxPENSTYLE_TRANSPARENT));
+    dc.SetBrush(wxBrush(colours[DARK]));
+    dc.SetPen(wxPen(colours[DARK], 0, wxPENSTYLE_TRANSPARENT));
     dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
 }
 
@@ -200,5 +219,10 @@ bool Board::IsLegalMove(const Point &point)
 {
     int x = point.GetX();
     int y = point.GetY();
-    return ((highlight_matrix[x][y]) ? true : false);
+    if (highlight_matrix[x][y] == true)
+    {
+        highlight_matrix[x][y] = false;
+        return true;
+    }
+    return false;
 }
