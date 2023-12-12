@@ -29,7 +29,7 @@ public:
     bool highlight_matrix[8][8];
     Board();
     Board(wxFrame *parent);
-    void DrawSquare(const Point &point, Colour color, Piece *piece);
+    void DrawSquare(const Point &point, Colour &color, Piece *piece);
     void DrawPiece(const Point &point, Piece *piece, wxPaintDC &dc);
     void OnPaint(wxPaintEvent &event);
     void OnLeftClick(wxMouseEvent &event);
@@ -37,9 +37,6 @@ public:
     bool IsLegalMove(const Point &point);
     void CleanSquare(const Point &point);
     void MovePiece(const Point &oldpoint, const Point &newpoint);
-    void DrawLightSquare(wxPaintDC &dc, const Point &point);
-    void DrawDarkSquare(wxPaintDC &dc, const Point &point);
-    void HighlightSquare(wxPaintDC &dc, const Point &point);
     ~Board();
 };
 

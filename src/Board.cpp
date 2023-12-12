@@ -123,31 +123,13 @@ void Board::OnLeftClick(wxMouseEvent &event)
     Refresh(true); // Request a repaint
 }
 
-void Board::DrawSquare(const Point &point, Colour color, Piece *piece)
+void Board::DrawSquare(const Point &point, Colour &color, Piece *piece)
 {
     wxPaintDC dc(this);
     Point selected = Point(selectedSquareCol, selectedSquareRow);
     dc.SetBrush(wxBrush(colours[color]));
     dc.SetPen(wxPen(colours[color], 0, wxPENSTYLE_TRANSPARENT));
     dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
-    // if (point == selected)
-    // {
-    //     HighlightSquare(dc, point);
-    // }
-    // else
-    // {
-
-    //     if (color == LIGHT)
-    //     {
-    //         DrawLightSquare(dc, point);
-    //     }
-    //     // DrawLightSquare(dc, point);
-    //     else
-    //     {
-    //         DrawDarkSquare(dc, point);
-    //     }
-    //     // DrawDarkSquare(dc, point);
-    // }
     DrawPiece(point, piece, dc);
 }
 
@@ -176,28 +158,6 @@ void Board::MovePiece(const Point &oldpoint, const Point &newpoint)
     CleanSquare(newpoint);
     pieces[newpoint.GetX()][newpoint.GetY()] = pieces[oldpoint.GetX()][oldpoint.GetY()];
     pieces[oldpoint.GetX()][oldpoint.GetY()] = nullptr;
-}
-
-void Board::DrawLightSquare(wxPaintDC &dc, const Point &point)
-{
-    dc.SetBrush(wxBrush(wxColour(245, 227, 207, 255)));
-    dc.SetPen(wxPen(wxColour(245, 227, 207, 255), 0, wxPENSTYLE_TRANSPARENT));
-    dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
-}
-void Board::DrawDarkSquare(wxPaintDC &dc, const Point &point)
-{
-
-    dc.SetBrush(wxBrush(colours[DARK]));
-    dc.SetPen(wxPen(colours[DARK], 0, wxPENSTYLE_TRANSPARENT));
-    dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
-}
-
-void Board::HighlightSquare(wxPaintDC &dc, const Point &point)
-{
-    dc.SetBrush(wxBrush(wxColour(158, 90, 78)));
-    dc.SetPen(wxPen(wxColour(158, 90, 78), 0, wxPENSTYLE_TRANSPARENT));
-    dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
-    this->highlight_matrix[point.GetX()][point.GetY()] = 0;
 }
 
 void Board::DrawPiece(const Point &point, Piece *piece, wxPaintDC &dc)
