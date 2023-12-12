@@ -10,7 +10,7 @@ public:
     Rook();
     Rook(Colour colour);
     ~Rook();
-    std::vector<Point> GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],int highlight_matrix[8][8]) const;
+    void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
 
 private:
 };

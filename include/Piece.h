@@ -36,11 +36,12 @@ public:
     ~Piece();
     wxBitmap *GetImage();
     void SetImage(wxBitmap *image);
+    virtual void GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8]) = 0;
 
 protected:
     wxBitmap *m_image;
     Colour m_colour;
-    virtual std::vector<Point> GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],int highlight_matrix[8][8]) const = 0;
+
 private:
 };
 

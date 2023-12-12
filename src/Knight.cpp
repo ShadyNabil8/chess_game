@@ -16,7 +16,7 @@ Knight::Knight(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_KNIGHT, wxBITMAP_TYPE_PNG);
 }
-std::vector<Point> Knight::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],int highlight_matrix[8][8]) const
+void Knight::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8])
 {
 }
 

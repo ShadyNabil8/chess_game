@@ -14,7 +14,16 @@ Pawn::Pawn(Colour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_PAWN, wxBITMAP_TYPE_PNG);
 }
-std::vector<Point> Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8],int highlight_matrix[8][8]) const
+void Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8])
 {
-    
+    int x = point.GetX();
+    int y = point.GetY();
+    if ((((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] == nullptr))
+        highlight_matrix[x][y + 1] = 1;
+
+    if ((((x + 1) < 8) && ((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] != nullptr))
+        highlight_matrix[x + 1][y + 1] = 1;
+
+    if ((((x - 1) < 8) && ((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] != nullptr))
+        highlight_matrix[x - 1][y + 1] = 1;
 }

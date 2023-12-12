@@ -10,7 +10,7 @@ public:
     Knight();
     Knight(Colour colour);
     ~Knight();
-    std::vector<Point> GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],int highlight_matrix[8][8]) const;
+    void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
 
 private:
 };
