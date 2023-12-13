@@ -16,9 +16,9 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     squareSize = 100;
     selectedSquareRow = -1;
     selectedSquareCol = -1;
-    colours[DARK] = wxColour(209, 134, 88, 255);
-    colours[LIGHT] = wxColour(245, 227, 207, 255);
-    colours[HIGHLIGHT] = wxColour(158, 90, 78);
+    colours[DARK] = wxColour(134, 167, 137);
+    colours[LIGHT] = wxColour(235, 243, 232);
+    colours[HIGHLIGHT] = wxColour(178, 200, 186);
 
     for (int row = 0; row < boardSize; row++)
     {
