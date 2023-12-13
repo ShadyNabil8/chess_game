@@ -44,6 +44,7 @@ protected:
     bool IsEnemy(const Piece *current, const Piece *other);
     bool IsEmpty(const Piece *piece);
     void SetValidMove(const Point &point, bool highlight_matrix[8][8]);
+    Colour GetColour();
 
 private:
 };

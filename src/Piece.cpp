@@ -1,7 +1,5 @@
 #include "Piece.h"
-#include <thread>
-#include <chrono>
-#include <future>
+
 Piece::Piece()
 {
 }
@@ -53,3 +51,8 @@ void Piece::SetValidMove(const Point &point, bool highlight_matrix[8][8])
     int y = point.GetY();
     highlight_matrix[x][y] = true;
 }
+
+// Colour Piece::GetColour()
+// {
+//     return this->m_colour;
+// }
