@@ -40,3 +40,9 @@ bool Point::operator!=(const Point &point) const
     else
         return true;
 }
+
+void Point::SetXY(int x, int y)
+{
+    this->m_x = x;
+    this->m_y = y;
+}

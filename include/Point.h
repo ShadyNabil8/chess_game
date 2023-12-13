@@ -12,6 +12,7 @@ public:
     int GetY() const;
     void SetX(int x);
     void SetY(int y);
+    void SetXY(int x, int y);
     bool operator==(const Point &point) const;
     bool operator!=(const Point &point) const;
 

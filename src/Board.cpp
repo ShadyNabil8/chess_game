@@ -96,7 +96,6 @@ void Board::OnLeftClick(wxMouseEvent &event)
         {
             Point point(clickedCol, clickedRow);
             GetPiece(point)->GetLegalMoves(point, pieces, highlight_matrix);
-            // No square selected yet, highlight the clicked square
             selectedSquareRow = clickedRow;
             selectedSquareCol = clickedCol;
         }

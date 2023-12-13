@@ -18,14 +18,23 @@ void Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool high
 {
     int x = point.GetX();
     int y = point.GetY();
+    Piece *other;
+    Point otherpoint;
     /* Highlight piece square */
     highlight_matrix[x][y] = 1;
-    if ((IsInBoard(x, y + 1)) && (chessmatrix[x][y + 1] == nullptr))
+
+    other = chessmatrix[x][y + 1];
+    otherpoint.SetXY(x, y + 1);
+    if ((IsInBoard(otherpoint)) && IsEmpty(other))
         highlight_matrix[x][y + 1] = 1;
 
-    if (IsInBoard(x + 1, y) && IsInBoard(x, y + 1) && (chessmatrix[x + 1][y + 1] != nullptr))
+    other = chessmatrix[x + 1][y + 1];
+    otherpoint.SetXY(x + 1, y + 1);
+    if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
         highlight_matrix[x + 1][y + 1] = 1;
 
-    if (IsInBoard(x - 1, y) && IsInBoard(x, y + 1) && (chessmatrix[x - 1][y + 1] != nullptr))
+    other = chessmatrix[x - 1][y + 1];
+    otherpoint.SetXY(x - 1, y + 1);
+    if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
         highlight_matrix[x - 1][y + 1] = 1;
 }

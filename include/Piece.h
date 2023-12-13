@@ -6,7 +6,6 @@
 #include <wx/wx.h>
 #include <iostream>
 #include "Point.h"
-#include <vector>
 
 #define str std::string
 #define CHESS_IMAGES_DIR str("/home/shady/chess_game/images/")
@@ -41,8 +40,9 @@ public:
 protected:
     wxBitmap *m_image;
     Colour m_colour;
-    bool IsInBoard(int x, int y);
-    bool IsAlly(Piece *piece);
+    bool IsInBoard(const Point &point);
+    bool IsEnemy(const Piece *current, const Piece *other);
+    bool IsEmpty(const Piece *piece);
 
 private:
 };
