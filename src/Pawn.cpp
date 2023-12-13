@@ -25,8 +25,6 @@ void Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool high
         step = -1;
     Piece *other;
     Point otherpoint;
-    /* Highlight piece square */
-    highlight_matrix[x][y] = 1;
 
     other = chessmatrix[x][y + step];
     otherpoint.SetXY(x, y + step);
