@@ -59,7 +59,6 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
 void Board ::OnPaint(wxPaintEvent &event)
 {
     //  Draw the chessboard
-    wxPaintDC dc(this);
     Point point;
     Colour sqrcolour;
     for (int row = 0; row < boardSize; row++)
@@ -69,18 +68,13 @@ void Board ::OnPaint(wxPaintEvent &event)
         {
             point.SetX(col);
             if (IsLegalMove(point))
-            {
-                // HighlightSquare(dc, point);
                 sqrcolour = HIGHLIGHT;
-            }
             else
             {
                 if ((row + col) % 2 == 0)
                     sqrcolour = LIGHT;
-                // DrawSquare(point, LIGHT, pieces[col][row]);
                 else
                     sqrcolour = DARK;
-                // DrawSquare(point, DARK, pieces[col][row]);
             }
             DrawSquare(point, sqrcolour, pieces[col][row]);
         }
@@ -101,7 +95,7 @@ void Board::OnLeftClick(wxMouseEvent &event)
         if (!IsEmptySquare(Point(clickedCol, clickedRow)))
         {
             Point point(clickedCol, clickedRow);
-            this->pieces[clickedCol][clickedRow]->GetLegalMoves(point, pieces, highlight_matrix);
+            GetPiece(point)->GetLegalMoves(point, pieces, highlight_matrix);
             // No square selected yet, highlight the clicked square
             selectedSquareRow = clickedRow;
             selectedSquareCol = clickedCol;
@@ -125,17 +119,19 @@ void Board::OnLeftClick(wxMouseEvent &event)
 
 void Board::DrawSquare(const Point &point, Colour &color, Piece *piece)
 {
+    int mouseX = point.GetX() * squareSize;
+    int mouseY = point.GetY() * squareSize;
     wxPaintDC dc(this);
     Point selected = Point(selectedSquareCol, selectedSquareRow);
     dc.SetBrush(wxBrush(colours[color]));
     dc.SetPen(wxPen(colours[color], 0, wxPENSTYLE_TRANSPARENT));
-    dc.DrawRectangle(point.GetX() * squareSize, point.GetY() * squareSize, squareSize, squareSize);
+    dc.DrawRectangle(mouseX, mouseY, squareSize, squareSize);
     DrawPiece(point, piece, dc);
 }
 
 bool Board::IsEmptySquare(const Point &point)
 {
-    if (pieces[point.GetX()][point.GetY()] == nullptr)
+    if (GetPiece(point) == nullptr)
         return true;
     else
         return false;
@@ -143,21 +139,18 @@ bool Board::IsEmptySquare(const Point &point)
 
 void Board::CleanSquare(const Point &point)
 {
-    if (IsEmptySquare(point))
+    if (!IsEmptySquare(point))
     {
-        pieces[point.GetX()][point.GetY()] = nullptr;
-    }
-    else
-    {
-        delete pieces[point.GetX()][point.GetY()];
-        pieces[point.GetX()][point.GetY()] = nullptr;
+        delete GetPiece(point);
+        SetPiece(point, nullptr);
     }
 }
 void Board::MovePiece(const Point &oldpoint, const Point &newpoint)
 {
     CleanSquare(newpoint);
-    pieces[newpoint.GetX()][newpoint.GetY()] = pieces[oldpoint.GetX()][oldpoint.GetY()];
-    pieces[oldpoint.GetX()][oldpoint.GetY()] = nullptr;
+    Piece *oldpiece = GetPiece(oldpoint);
+    SetPiece(newpoint, oldpiece);
+    SetPiece(oldpoint, nullptr);
 }
 
 void Board::DrawPiece(const Point &point, Piece *piece, wxPaintDC &dc)
@@ -185,4 +178,14 @@ bool Board::IsLegalMove(const Point &point)
         return true;
     }
     return false;
+}
+
+Piece *Board::GetPiece(const Point &point)
+{
+    return this->pieces[point.GetX()][point.GetY()];
+}
+
+void Board::SetPiece(const Point &point, Piece *piece)
+{
+    pieces[point.GetX()][point.GetY()] = piece;
 }

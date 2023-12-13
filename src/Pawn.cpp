@@ -20,12 +20,12 @@ void Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool high
     int y = point.GetY();
     /* Highlight piece square */
     highlight_matrix[x][y] = 1;
-    if ((((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] == nullptr))
+    if ((((y + 1) < 8)) && (chessmatrix[x][y + 1] == nullptr))
         highlight_matrix[x][y + 1] = 1;
 
     if ((((x + 1) < 8) && ((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] != nullptr))
         highlight_matrix[x + 1][y + 1] = 1;
 
-    if ((((x - 1) < 8) && ((y + 1) < 8)) && (chessmatrix[x + 1][y + 1] != nullptr))
+    if ((((x - 1) < 8) && ((y + 1) < 8)) && (chessmatrix[x - 1][y + 1] != nullptr))
         highlight_matrix[x - 1][y + 1] = 1;
 }

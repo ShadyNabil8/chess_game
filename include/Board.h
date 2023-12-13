@@ -37,6 +37,9 @@ public:
     bool IsLegalMove(const Point &point);
     void CleanSquare(const Point &point);
     void MovePiece(const Point &oldpoint, const Point &newpoint);
+    Piece *GetPiece(const Point &point);
+    void SetPiece(const Point &point, Piece * piece);
+
     ~Board();
 };
 
