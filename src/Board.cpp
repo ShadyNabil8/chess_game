@@ -61,6 +61,7 @@ void Board ::OnPaint(wxPaintEvent &event)
     //  Draw the chessboard
     Point point;
     Colour sqrcolour;
+    LegalMovesVector.reserve(INITIAL_VECTOR_SIZE);
     for (int row = 0; row < boardSize; row++)
     {
         point.SetY(row);
@@ -106,11 +107,17 @@ void Board::OnLeftClick(wxMouseEvent &event)
         Point newpoint = Point(clickedCol, clickedRow);
         /* Ensure that the same piece will not eat itself */
         if (oldpoint != newpoint)
-            MovePiece(oldpoint, newpoint);
+        {
+            if (IsLegalMoveSelected(newpoint))
+                MovePiece(oldpoint, newpoint);
+        }
 
         // Reset the selected square
         selectedSquareRow = -1;
         selectedSquareCol = -1;
+
+        /* Reset the vector containning legal moves */
+        LegalMovesVector.clear();
     }
 
     Refresh(true); // Request a repaint
@@ -173,6 +180,7 @@ bool Board::IsLegalMove(const Point &point)
     int y = point.GetY();
     if (highlight_matrix[x][y] == true)
     {
+        LegalMovesVector.push_back(point);
         highlight_matrix[x][y] = false;
         return true;
     }
@@ -187,4 +195,14 @@ Piece *Board::GetPiece(const Point &point)
 void Board::SetPiece(const Point &point, Piece *piece)
 {
     pieces[point.GetX()][point.GetY()] = piece;
+}
+
+bool Board::IsLegalMoveSelected(Point &point)
+{
+    auto it = std::find(LegalMovesVector.begin(), LegalMovesVector.end(), point);
+
+    if (it != LegalMovesVector.end())
+        return true;
+    else
+        return false;
 }

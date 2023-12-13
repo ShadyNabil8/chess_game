@@ -9,6 +9,10 @@
 #include "Rook.h"
 #include "Pawn.h"
 #include "Point.h"
+#include <vector>
+
+#define INITIAL_VECTOR_SIZE 4
+
 class Board : public wxPanel
 {
 private:
@@ -38,8 +42,9 @@ public:
     void CleanSquare(const Point &point);
     void MovePiece(const Point &oldpoint, const Point &newpoint);
     Piece *GetPiece(const Point &point);
-    void SetPiece(const Point &point, Piece * piece);
-
+    void SetPiece(const Point &point, Piece *piece);
+    bool IsLegalMoveSelected(Point &point);
+    std::vector<Point> LegalMovesVector;
     ~Board();
 };
 
