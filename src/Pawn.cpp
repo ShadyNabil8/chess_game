@@ -26,15 +26,15 @@ void Pawn::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool high
     other = chessmatrix[x][y + 1];
     otherpoint.SetXY(x, y + 1);
     if ((IsInBoard(otherpoint)) && IsEmpty(other))
-        highlight_matrix[x][y + 1] = 1;
+        SetValidMove(otherpoint, highlight_matrix);
 
     other = chessmatrix[x + 1][y + 1];
     otherpoint.SetXY(x + 1, y + 1);
     if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
-        highlight_matrix[x + 1][y + 1] = 1;
+        SetValidMove(otherpoint, highlight_matrix);
 
     other = chessmatrix[x - 1][y + 1];
     otherpoint.SetXY(x - 1, y + 1);
     if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
-        highlight_matrix[x - 1][y + 1] = 1;
+        SetValidMove(otherpoint, highlight_matrix);
 }

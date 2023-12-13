@@ -46,3 +46,10 @@ bool Piece::IsEmpty(const Piece *piece)
     else
         return false;
 }
+
+void Piece::SetValidMove(const Point &point, bool highlight_matrix[8][8])
+{
+    int x = point.GetX();
+    int y = point.GetY();
+    highlight_matrix[x][y] = true;
+}

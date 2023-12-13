@@ -43,6 +43,7 @@ protected:
     bool IsInBoard(const Point &point);
     bool IsEnemy(const Piece *current, const Piece *other);
     bool IsEmpty(const Piece *piece);
+    void SetValidMove(const Point &point, bool highlight_matrix[8][8]);
 
 private:
 };
