@@ -76,7 +76,7 @@ void Board ::OnPaint(wxPaintEvent &event)
                 else
                     sqrcolour = DARK;
             }
-            DrawSquare(point, sqrcolour, pieces[col][row]);
+            DrawSquare(point, sqrcolour, GetPiece(point));
         }
     }
     // Ensure the paint event is processed
@@ -105,7 +105,7 @@ void Board::OnLeftClick(wxMouseEvent &event)
     {
         Point oldpoint = Point(selectedSquareCol, selectedSquareRow);
         Point newpoint = Point(clickedCol, clickedRow);
-        /* Ensure that the same piece will not eat itself :) */
+        /* Ensure that the same piece will not eat itself */
         if (oldpoint != newpoint)
             MovePiece(oldpoint, newpoint);
 

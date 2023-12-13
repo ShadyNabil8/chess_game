@@ -41,6 +41,8 @@ public:
 protected:
     wxBitmap *m_image;
     Colour m_colour;
+    bool IsInBoard(int x, int y);
+    bool IsAlly(Piece *piece);
 
 private:
 };
