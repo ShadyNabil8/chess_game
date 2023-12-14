@@ -25,26 +25,26 @@
 class Piece
 {
 public:
-    enum Colour
+    enum PieceColour
     {
-        DARK,
-        LIGHT
+        DARK_PIECE = 0,
+        LIGHT_PIECE
     };
     Piece();
-    Piece(Colour colour);
+    Piece(PieceColour colour);
     ~Piece();
     wxBitmap *GetImage();
+    virtual PieceColour GetColour() = 0;
     void SetImage(wxBitmap *image);
     virtual void GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8]) = 0;
 
 protected:
     wxBitmap *m_image;
-    Colour m_colour;
+    PieceColour m_colour;
     bool IsInBoard(const Point &point);
     bool IsEnemy(const Piece *current, const Piece *other);
     bool IsEmpty(const Piece *piece);
     void SetValidMove(const Point &point, bool highlight_matrix[8][8]);
-    Colour GetColour();
 
 private:
 };

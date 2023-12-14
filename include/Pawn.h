@@ -8,10 +8,10 @@ class Pawn : public Piece
 {
 public:
     Pawn();
-    Pawn(Colour colour);
+    Pawn(PieceColour colour);
     ~Pawn();
     void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
-
+    Piece::PieceColour GetColour();
 private:
 };
 

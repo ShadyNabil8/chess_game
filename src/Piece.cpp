@@ -7,7 +7,7 @@ Piece::~Piece()
 {
 }
 
-Piece::Piece(Colour colour) : m_colour(colour), m_image(nullptr)
+Piece::Piece(PieceColour colour) : m_colour(colour), m_image(nullptr)
 {
 }
 
@@ -51,8 +51,3 @@ void Piece::SetValidMove(const Point &point, bool highlight_matrix[8][8])
     int y = point.GetY();
     highlight_matrix[x][y] = true;
 }
-
-// Colour Piece::GetColour()
-// {
-//     return this->m_colour;
-// }

@@ -8,10 +8,10 @@ class Queen : public Piece
 {
 public:
     Queen();
-    Queen(Colour colour);
+    Queen(PieceColour colour);
     ~Queen();
     void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
-
+    Piece::PieceColour GetColour();
 private:
 };
 

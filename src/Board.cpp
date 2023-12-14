@@ -19,6 +19,7 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     colours[DARK] = wxColour(134, 167, 137);
     colours[LIGHT] = wxColour(235, 243, 232);
     colours[HIGHLIGHT] = wxColour(178, 200, 186);
+    player = DARK_PLAYER;
 
     for (int row = 0; row < boardSize; row++)
     {
@@ -31,28 +32,28 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     Bind(wxEVT_PAINT, &Board::OnPaint, this);
     Bind(wxEVT_LEFT_DOWN, &Board::OnLeftClick, this);
 
-    pieces[0][0] = new Rook(Piece::DARK);
-    pieces[1][0] = new Knight(Piece::DARK);
-    pieces[2][0] = new Bishop(Piece::DARK);
-    pieces[3][0] = new Queen(Piece::DARK);
-    pieces[4][0] = new King(Piece::DARK);
-    pieces[5][0] = new Bishop(Piece::DARK);
-    pieces[6][0] = new Knight(Piece::DARK);
-    pieces[7][0] = new Rook(Piece::DARK);
+    pieces[0][0] = new Rook(Piece::DARK_PIECE);
+    pieces[1][0] = new Knight(Piece::DARK_PIECE);
+    pieces[2][0] = new Bishop(Piece::DARK_PIECE);
+    pieces[3][0] = new Queen(Piece::DARK_PIECE);
+    pieces[4][0] = new King(Piece::DARK_PIECE);
+    pieces[5][0] = new Bishop(Piece::DARK_PIECE);
+    pieces[6][0] = new Knight(Piece::DARK_PIECE);
+    pieces[7][0] = new Rook(Piece::DARK_PIECE);
 
-    pieces[0][7] = new Rook(Piece::LIGHT);
-    pieces[1][7] = new Knight(Piece::LIGHT);
-    pieces[2][7] = new Bishop(Piece::LIGHT);
-    pieces[3][7] = new Queen(Piece::LIGHT);
-    pieces[4][7] = new King(Piece::LIGHT);
-    pieces[5][7] = new Bishop(Piece::LIGHT);
-    pieces[6][7] = new Knight(Piece::LIGHT);
-    pieces[7][7] = new Rook(Piece::LIGHT);
+    pieces[0][7] = new Rook(Piece::LIGHT_PIECE);
+    pieces[1][7] = new Knight(Piece::LIGHT_PIECE);
+    pieces[2][7] = new Bishop(Piece::LIGHT_PIECE);
+    pieces[3][7] = new Queen(Piece::LIGHT_PIECE);
+    pieces[4][7] = new King(Piece::LIGHT_PIECE);
+    pieces[5][7] = new Bishop(Piece::LIGHT_PIECE);
+    pieces[6][7] = new Knight(Piece::LIGHT_PIECE);
+    pieces[7][7] = new Rook(Piece::LIGHT_PIECE);
 
     for (int i = 0; i < boardSize; i++)
     {
-        pieces[i][1] = new Pawn(Piece::DARK);
-        pieces[i][6] = new Pawn(Piece::LIGHT);
+        pieces[i][1] = new Pawn(Piece::DARK_PIECE);
+        pieces[i][6] = new Pawn(Piece::LIGHT_PIECE);
     }
 }
 
@@ -90,28 +91,32 @@ void Board::OnLeftClick(wxMouseEvent &event)
     int mouseY = event.GetY();
     int clickedCol = mouseX / squareSize;
     int clickedRow = mouseY / squareSize;
+    Point newpoint = Point(clickedCol, clickedRow);
 
     if (selectedSquareRow == -1 && selectedSquareCol == -1)
     {
-        if (!IsEmptySquare(Point(clickedCol, clickedRow)))
+        if (!IsEmptySquare(newpoint))
         {
-            Point point(clickedCol, clickedRow);
-            GetPiece(point)->GetLegalMoves(point, pieces, highlight_matrix);
-            selectedSquareRow = clickedRow;
-            selectedSquareCol = clickedCol;
+            if (IsCorrectPlayerTurn(newpoint))
+            {
+                GetPiece(newpoint)->GetLegalMoves(newpoint, pieces, highlight_matrix);
+                selectedSquareRow = clickedRow;
+                selectedSquareCol = clickedCol;
+            }
         }
     }
     else
     {
         Point oldpoint = Point(selectedSquareCol, selectedSquareRow);
-        Point newpoint = Point(clickedCol, clickedRow);
         /* Ensure that the same piece will not eat itself */
         if (oldpoint != newpoint)
         {
             if (IsLegalMoveSelected(newpoint))
+            {
                 MovePiece(oldpoint, newpoint);
+                RevertTurns();
+            }
         }
-
         // Reset the selected square
         selectedSquareRow = -1;
         selectedSquareCol = -1;
@@ -205,4 +210,22 @@ bool Board::IsLegalMoveSelected(Point &point)
         return true;
     else
         return false;
+}
+
+bool Board::IsCorrectPlayerTurn(const Point &point)
+{
+    Piece::PieceColour piececolor = GetPiece(point)->GetColour();
+    if (piececolor == Piece::DARK_PIECE && this->player == DARK_PLAYER)
+        return true;
+    else if (piececolor == Piece::LIGHT_PIECE && this->player == LIGHT_PLAYER)
+        return true;
+    else
+        return false;
+}
+void Board::RevertTurns()
+{
+    if (this->player == DARK_PLAYER)
+        this->player = LIGHT_PLAYER;
+    else
+        this->player = DARK_PLAYER;
 }

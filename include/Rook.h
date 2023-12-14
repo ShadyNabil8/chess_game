@@ -8,10 +8,10 @@ class Rook : public Piece
 {
 public:
     Rook();
-    Rook(Colour colour);
+    Rook(PieceColour colour);
     ~Rook();
     void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
-
+    Piece::PieceColour GetColour();
 private:
 };
 

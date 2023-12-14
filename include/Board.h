@@ -22,21 +22,24 @@ private:
         LIGHT,
         HIGHLIGHT
     };
+    enum Player
+    {
+        DARK_PLAYER = 0,
+        LIGHT_PLAYER,
+    };
     int boardSize;
     int squareSize;
     int selectedSquareRow;
     int selectedSquareCol;
+    Player player;
     wxColour colours[3];
     std::vector<Point> LegalMovesVector;
+
     /* I am using this array to check for the existance for certain piece on a certan square*/
     Piece *pieces[8][8];
 
     /* I am using this array to determine the legal movements that a certain piece on a certain square can move*/
     bool highlight_matrix[8][8];
-
-public:
-    Board();
-    Board(wxFrame *parent);
 
     /**
      * @brief
@@ -132,6 +135,12 @@ public:
      */
     bool IsLegalMoveSelected(Point &point);
 
+    bool IsCorrectPlayerTurn(const Point &point);
+    void RevertTurns();
+
+public:
+    Board();
+    Board(wxFrame *parent);
     ~Board();
 };
 
