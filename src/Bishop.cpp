@@ -16,80 +16,40 @@ Bishop::Bishop(PieceColour colour) : Piece(colour)
         this->m_image = new wxBitmap(CHESS_WHITE_BISHOP, wxBITMAP_TYPE_PNG);
 }
 
-void Bishop::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8])
+void Bishop::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
-    int x = point.GetX();
-    int y = point.GetY();
-    Point otherpoint;
-    Piece *other;
-
-    /* If you used i = 0, then it will compare the current location of the selected piece if it is an enemy or not
-        and surly it is not an enemy, so it will break the loop without adding ant moves.
-    */
-    for (int i = 1; i < 8; i++)
-    {
-        otherpoint.SetXY(x - i, y - i);
-        other = chessmatrix[x - i][y - i];
-        if (IsInBoard(otherpoint) && IsEmpty(other))
-            SetValidMove(otherpoint, highlight_matrix);
-        else if (IsInBoard(otherpoint))
-        {
-            if (IsEnemy(this, other))
-                SetValidMove(otherpoint, highlight_matrix);
-            break;
-        }
-        else
-            break;
-    }
-
-    for (int i = 1; i < 8; i++)
-    {
-        otherpoint.SetXY(x + i, y + i);
-        other = chessmatrix[x + i][y + i];
-        if (IsInBoard(otherpoint) && IsEmpty(other))
-            SetValidMove(otherpoint, highlight_matrix);
-        else if (IsInBoard(otherpoint))
-        {
-            if (IsEnemy(this, other))
-                SetValidMove(otherpoint, highlight_matrix);
-            break;
-        }
-        else
-            break;
-    }
-    for (int i = 1; i < 8; i++)
-    {
-        otherpoint.SetXY(x + i, y - i);
-        other = chessmatrix[x + i][y - i];
-        if (IsInBoard(otherpoint) && IsEmpty(other))
-            SetValidMove(otherpoint, highlight_matrix);
-        else if (IsInBoard(otherpoint))
-        {
-            if (IsEnemy(this, other))
-                SetValidMove(otherpoint, highlight_matrix);
-            break;
-        }
-        else
-            break;
-    }
-    for (int i = 1; i < 8; i++)
-    {
-        otherpoint.SetXY(x - i, y + i);
-        other = chessmatrix[x - i][y + i];
-        if (IsInBoard(otherpoint) && IsEmpty(other))
-            SetValidMove(otherpoint, highlight_matrix);
-        else if (IsInBoard(otherpoint))
-        {
-            if (IsEnemy(this, other))
-                SetValidMove(otherpoint, highlight_matrix);
-            break;
-        }
-        else
-            break;
-    }
+    int i = 1;
+    CheckAndSetMove(-i, -i, currentPosition, chessBoard, validMovesMatrix); // Top-left
+    CheckAndSetMove(i, i, currentPosition, chessBoard, validMovesMatrix);   // Bottom-right
+    CheckAndSetMove(i, -i, currentPosition, chessBoard, validMovesMatrix);  // Top-right
+    CheckAndSetMove(-i, i, currentPosition, chessBoard, validMovesMatrix);  // Bottom-left
 }
 
 Piece::PieceColour Bishop::GetColour()
 {
     return this->m_colour;
+}
+
+void Bishop::CheckAndSetMove(int xChange, int yChange, const Point &startPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
+{
+    Point targetPosition = startPosition;
+    targetPosition.SetXY(targetPosition.GetX() + xChange, targetPosition.GetY() + yChange);
+    Piece *targetPiece;
+
+    while (IsInBoard(targetPosition))
+    {
+        targetPiece = chessBoard[targetPosition.GetX()][targetPosition.GetY()];
+
+        if (IsEmpty(targetPiece))
+            SetValidMove(targetPosition, validMovesMatrix);
+        else if (IsEnemy(this, targetPiece))
+        {
+            SetValidMove(targetPosition, validMovesMatrix);
+            break;
+        }
+        else
+            break;
+
+        targetPosition.SetXY(targetPosition.GetX() + xChange, targetPosition.GetY() + yChange);
+    }
 }

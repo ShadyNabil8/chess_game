@@ -22,6 +22,10 @@
 #define CHESS_WHITE_ROOK (CHESS_IMAGES_DIR + str("w_rook.png"))
 #define CHESS_BLACK_ROOK (CHESS_IMAGES_DIR + str("b_rook.png"))
 
+#ifndef BOARD_SIZE
+#define BOARD_SIZE 8
+#endif
+
 class Piece
 {
 public:
