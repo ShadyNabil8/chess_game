@@ -36,3 +36,12 @@ The methods ```GetX()``` and ```GetY()``` must also be const because the compile
 * ```clear()``` set size to zero and also delete all the data.
 
 6. If there is an enum inside the class defination, it is only accessed inside the class difination and subclasses definations. Or use ```::``` to access it outside.
+
+7. This way in cinstruction reduce the redundancy code.
+
+```cpp
+Rook::Rook(PieceColour colour) : Piece(colour)
+{
+    InitializeImage(CHESS_BLACK_ROOK, CHESS_WHITE_ROOK);
+}
+```
