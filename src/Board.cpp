@@ -16,9 +16,10 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     squareSize = 100;
     selectedSquareRow = -1;
     selectedSquareCol = -1;
-    colours[DARK] = wxColour(134, 167, 137);
-    colours[LIGHT] = wxColour(235, 243, 232);
-    colours[HIGHLIGHT] = wxColour(178, 200, 186);
+    colours[DARK] = wxColour(99, 126, 118);
+    colours[LIGHT] = wxColour(255, 239, 232);
+    colours[HIGHLIGHT] = wxColour(198, 151, 116);
+    colours[BORDER] = wxColour(248, 223, 212);
     player = DARK_PLAYER;
 
     for (int row = 0; row < boardSize; row++)
@@ -133,9 +134,8 @@ void Board::DrawSquare(const Point &point, Colour &color, Piece *piece)
     int mouseX = point.GetX() * squareSize;
     int mouseY = point.GetY() * squareSize;
     wxPaintDC dc(this);
-    Point selected = Point(selectedSquareCol, selectedSquareRow);
     dc.SetBrush(wxBrush(colours[color]));
-    dc.SetPen(wxPen(colours[color], 0, wxPENSTYLE_TRANSPARENT));
+    dc.SetPen(wxPen(colours[BORDER], 2, wxPENSTYLE_SOLID));
     dc.DrawRectangle(mouseX, mouseY, squareSize, squareSize);
     DrawPiece(point, piece, dc);
 }

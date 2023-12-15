@@ -20,7 +20,8 @@ private:
     {
         DARK = 0,
         LIGHT,
-        HIGHLIGHT
+        HIGHLIGHT,
+        BORDER
     };
     enum Player
     {
@@ -32,7 +33,7 @@ private:
     int selectedSquareRow;
     int selectedSquareCol;
     Player player;
-    wxColour colours[3];
+    wxColour colours[4];
     std::vector<Point> LegalMovesVector;
 
     /* I am using this array to check for the existance for certain piece on a certan square*/
