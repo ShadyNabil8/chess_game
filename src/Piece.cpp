@@ -21,33 +21,33 @@ void Piece::SetImage(wxBitmap *image)
     this->m_image = image;
 }
 
-bool Piece::IsInBoard(const Point &point)
+bool Piece::IsInBoard(const Point &targetPosition)
 {
-    int x = point.GetX();
-    int y = point.GetY();
+    int x = targetPosition.GetX();
+    int y = targetPosition.GetY();
     if ((x < 8) && (x >= 0) && (y < 8) && (y >= 0))
         return true;
     else
         return false;
 }
-bool Piece::IsEnemy(const Piece *current, const Piece *other)
+bool Piece::IsEnemy(const Piece *currentPiece, const Piece *targetPiece)
 {
-    if (current->m_colour == other->m_colour)
+    if (currentPiece->m_colour == targetPiece->m_colour)
         return false;
     else
         return true;
 }
-bool Piece::IsEmpty(const Piece *piece)
+bool Piece::IsEmpty(const Piece *targetPiece)
 {
-    if (piece == nullptr)
+    if (targetPiece == nullptr)
         return true;
     else
         return false;
 }
 
-void Piece::SetValidMove(const Point &point, bool highlight_matrix[8][8])
+void Piece::SetValidMove(const Point &targetPosition, bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
-    int x = point.GetX();
-    int y = point.GetY();
-    highlight_matrix[x][y] = true;
+    int x = targetPosition.GetX();
+    int y = targetPosition.GetY();
+    validMovesMatrix[x][y] = true;
 }

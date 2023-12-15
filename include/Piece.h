@@ -40,15 +40,15 @@ public:
     wxBitmap *GetImage();
     virtual PieceColour GetColour() = 0;
     void SetImage(wxBitmap *image);
-    virtual void GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8]) = 0;
+    virtual void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]) = 0;
 
 protected:
     wxBitmap *m_image;
     PieceColour m_colour;
-    bool IsInBoard(const Point &point);
-    bool IsEnemy(const Piece *current, const Piece *other);
-    bool IsEmpty(const Piece *piece);
-    void SetValidMove(const Point &point, bool highlight_matrix[8][8]);
+    bool IsInBoard(const Point &targetPosition);
+    bool IsEnemy(const Piece *currentPiece, const Piece *targetPiece);
+    bool IsEmpty(const Piece *targetPiece);
+    void SetValidMove(const Point &targetPosition, bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
 
 private:
 };

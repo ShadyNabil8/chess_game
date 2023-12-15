@@ -23,7 +23,7 @@ The methods ```GetX()``` and ```GetY()``` must also be const because the compile
 
 4. **I learned more abour virtual function.**
 
-* If there is a virtual function in the base class (not pure virtual function), it must have an implementation in the base class. If the base class is an abstrack class, use ```=0``` to make it pure VF.
+* If there is a virtual function in the base class (not pure virtual function), it must have an implementation in the ```base``` class. If the base class is an abstrack class, use ```=0``` to make it pure VF.
 * If there is no polymerphism, any function in the base class cannot be overrided in the subclass.
 * If there is polymerphism and there is a virual function in the base class that is overrided in the sub class, then the called function will be the one in the sub class.
 * If there is polymerphism and there is a non-virual function in the base class that is overrided in the sub class, then the called function will be the one in the base class.

@@ -10,8 +10,9 @@ public:
     Rook();
     Rook(PieceColour colour);
     ~Rook();
-    void GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8]);
+    void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
     Piece::PieceColour GetColour();
+
 private:
 };
 
