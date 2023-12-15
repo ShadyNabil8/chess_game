@@ -128,14 +128,6 @@ private:
      */
     bool IsLegalMoveSelected(Point &point);
 
-    bool IsCorrectPlayerTurn(const Point &point);
-    void RevertTurns();
-
-public:
-    Board();
-    Board(wxFrame *parent);
-    ~Board();
-    
     /**
      * @brief
      * Get a pointer to a piece on a square.
@@ -143,6 +135,27 @@ public:
      * @return Pointer to the piece.
      */
     Piece *GetPiece(const Point &point);
+
+    /**
+     * @brief
+     * Check if the slected piece is of color matchs the right player turn
+     * @param point The X and Y that defines the chosen square having the piece.
+     * @return true if corrcet color with correct player turn, false otherwise.
+     */
+    bool IsCorrectPlayerTurn(const Point &point);
+
+    /**
+     * @brief
+     * RevertTurns
+     * @param
+     * @return
+     */
+    void RevertTurns();
+
+public:
+    Board();
+    Board(wxFrame *parent);
+    ~Board();
 };
 
 #endif

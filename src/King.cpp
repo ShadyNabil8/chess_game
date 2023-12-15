@@ -27,10 +27,7 @@ void King::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_S
     CheckAndSetMove(POSITIVE_STEP, NIGATIVE_STEP, currentPosition, chessBoard, validMovesMatrix); // Top-right
     CheckAndSetMove(NIGATIVE_STEP, POSITIVE_STEP, currentPosition, chessBoard, validMovesMatrix); // Bottom-left
 }
-Piece::PieceColour King::GetColour()
-{
-    return this->m_colour;
-}
+
 void King::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
     Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);

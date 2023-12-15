@@ -25,10 +25,6 @@ void Knight::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD
         CheckAndSetMove(-KNIGHT_MOVE_DELTA, i, currentPosition, chessBoard, validMovesMatrix);
     }
 }
-Piece::PieceColour Knight::GetColour()
-{
-    return this->m_colour;
-}
 
 void Knight::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {

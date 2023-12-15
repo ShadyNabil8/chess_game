@@ -25,11 +25,6 @@ void Bishop::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD
     CheckAndSetMove(-i, i, currentPosition, chessBoard, validMovesMatrix);  // Bottom-left
 }
 
-Piece::PieceColour Bishop::GetColour()
-{
-    return this->m_colour;
-}
-
 void Bishop::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
     Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);
