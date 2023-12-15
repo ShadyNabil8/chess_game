@@ -9,12 +9,8 @@ Pawn::~Pawn()
 }
 Pawn::Pawn(PieceColour colour) : Piece(colour)
 {
-    if (this->m_colour == DARK_PIECE)
-        this->m_image = new wxBitmap(CHESS_BLACK_PAWN, wxBITMAP_TYPE_PNG);
-    else
-        this->m_image = new wxBitmap(CHESS_WHITE_PAWN, wxBITMAP_TYPE_PNG);
+    InitializeImage(CHESS_BLACK_PAWN, CHESS_WHITE_PAWN);
 }
-
 
 void Pawn::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
@@ -27,7 +23,6 @@ void Pawn::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_S
     CheckAndSetMove(step, step, currentPosition, chessBoard, validMovesMatrix);  // Diagonal right
     CheckAndSetMove(-step, step, currentPosition, chessBoard, validMovesMatrix); // Diagonal left
 }
-
 
 void Pawn::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {

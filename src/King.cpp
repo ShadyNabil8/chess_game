@@ -9,10 +9,7 @@ King::~King()
 }
 King::King(PieceColour colour) : Piece(colour)
 {
-    if (this->m_colour == DARK_PIECE)
-        this->m_image = new wxBitmap(CHESS_BLACK_KING, wxBITMAP_TYPE_PNG);
-    else
-        this->m_image = new wxBitmap(CHESS_WHITE_KING, wxBITMAP_TYPE_PNG);
+    InitializeImage(CHESS_BLACK_KING, CHESS_WHITE_KING);
 }
 void King::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {

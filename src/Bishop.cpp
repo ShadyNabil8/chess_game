@@ -10,10 +10,7 @@ Bishop::~Bishop()
 
 Bishop::Bishop(PieceColour colour) : Piece(colour)
 {
-    if (this->m_colour == DARK_PIECE)
-        this->m_image = new wxBitmap(CHESS_BLACK_BISHOP, wxBITMAP_TYPE_PNG);
-    else
-        this->m_image = new wxBitmap(CHESS_WHITE_BISHOP, wxBITMAP_TYPE_PNG);
+    InitializeImage(CHESS_BLACK_BISHOP, CHESS_WHITE_BISHOP);
 }
 
 void Bishop::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])

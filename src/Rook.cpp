@@ -10,10 +10,7 @@ Rook::~Rook()
 
 Rook::Rook(PieceColour colour) : Piece(colour)
 {
-    if (this->m_colour == DARK_PIECE)
-        this->m_image = new wxBitmap(CHESS_BLACK_ROOK, wxBITMAP_TYPE_PNG);
-    else
-        this->m_image = new wxBitmap(CHESS_WHITE_ROOK, wxBITMAP_TYPE_PNG);
+    InitializeImage(CHESS_BLACK_ROOK, CHESS_WHITE_ROOK);
 }
 void Rook::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
@@ -43,7 +40,7 @@ void Rook::CheckAndSetMove(int xChange, int yChange, const Point &currentPositio
         }
         else
             break;
-            
+
         targetPosition.SetXY(targetPosition.GetX() + xChange, targetPosition.GetY() + yChange);
     }
 }

@@ -26,6 +26,12 @@ void Piece::SetImage(wxBitmap *image)
     this->m_image = image;
 }
 
+void Piece::InitializeImage(const wxString &darkImage, const wxString &lightImage)
+{
+    wxBitmap *image = new wxBitmap(m_colour == DARK_PIECE ? darkImage : lightImage, wxBITMAP_TYPE_PNG);
+    SetImage(image);
+}
+
 bool Piece::IsInBoard(const Point &targetPosition)
 {
     int x = targetPosition.GetX();
