@@ -22,3 +22,6 @@ Piece::PieceColour Rook::GetColour()
 {
     return this->m_colour;
 }
+void Rook::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
+{
+}

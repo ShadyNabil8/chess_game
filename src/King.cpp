@@ -2,12 +2,10 @@
 
 King::King()
 {
-
 }
 
 King::~King()
 {
-
 }
 King::King(PieceColour colour) : Piece(colour)
 {
@@ -16,10 +14,13 @@ King::King(PieceColour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_KING, wxBITMAP_TYPE_PNG);
 }
-void King::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8])
+void King::GetLegalMoves(const Point &point, Piece *chessmatrix[8][8], bool highlight_matrix[8][8])
 {
 }
 Piece::PieceColour King::GetColour()
 {
     return this->m_colour;
+}
+void King::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
+{
 }

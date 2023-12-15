@@ -49,6 +49,7 @@ protected:
     bool IsEnemy(const Piece *currentPiece, const Piece *targetPiece);
     bool IsEmpty(const Piece *targetPiece);
     void SetValidMove(const Point &targetPosition, bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
+    virtual void CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]) = 0;
 
 private:
 };

@@ -16,25 +16,25 @@ Knight::Knight(PieceColour colour) : Piece(colour)
 }
 void Knight::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
-    int x = currentPosition.GetX();
-    int y = currentPosition.GetY();
-    Point targetPoint;
-    Piece *other;
-    
-    for (int i = -2; i <= 2; i += 4)
-    {
-        targetPoint.SetXY(x + 1, y + i);
-        other = chessBoard[x + 1][y + i];
-        if (IsInBoard(targetPoint) && (IsEmpty(other) || IsEnemy(this, other)))
-            SetValidMove(targetPoint, validMovesMatrix);
+    const int L_SHAPE_DELTA = 2;
+    const int KNIGHT_MOVE_DELTA = 1;
 
-        targetPoint.SetXY(x - 1, y + i);
-        other = chessBoard[x - 1][y + i];
-        if (IsInBoard(targetPoint) && (IsEmpty(other) || IsEnemy(this, other)))
-            SetValidMove(targetPoint, validMovesMatrix);
+    for (int i = -L_SHAPE_DELTA; i <= L_SHAPE_DELTA; i += 2 * L_SHAPE_DELTA)
+    {
+        CheckAndSetMove(KNIGHT_MOVE_DELTA, i, currentPosition, chessBoard, validMovesMatrix);
+        CheckAndSetMove(-KNIGHT_MOVE_DELTA, i, currentPosition, chessBoard, validMovesMatrix);
     }
 }
 Piece::PieceColour Knight::GetColour()
 {
     return this->m_colour;
+}
+
+void Knight::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
+{
+    Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);
+    Piece *targetPiece = chessBoard[targetPosition.GetX()][targetPosition.GetY()];
+
+    if (IsInBoard(targetPosition) && (IsEmpty(targetPiece) || IsEnemy(this, targetPiece)))
+        SetValidMove(targetPosition, validMovesMatrix);
 }
