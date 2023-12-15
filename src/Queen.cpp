@@ -1,13 +1,13 @@
 #include "Queen.h"
+#include "Rook.h"
+#include "Bishop.h"
 
 Queen::Queen()
 {
-
 }
 
 Queen::~Queen()
 {
-
 }
 Queen::Queen(PieceColour colour) : Piece(colour)
 {
@@ -16,7 +16,7 @@ Queen::Queen(PieceColour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_QUEEN, wxBITMAP_TYPE_PNG);
 }
-void Queen::GetLegalMoves(const Point &point,Piece* chessmatrix[8][8],bool highlight_matrix[8][8])
+void Queen::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
 }
 Piece::PieceColour Queen::GetColour()
@@ -25,4 +25,5 @@ Piece::PieceColour Queen::GetColour()
 }
 void Queen::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
+
 }
