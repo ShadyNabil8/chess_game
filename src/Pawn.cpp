@@ -14,32 +14,18 @@ Pawn::Pawn(PieceColour colour) : Piece(colour)
     else
         this->m_image = new wxBitmap(CHESS_WHITE_PAWN, wxBITMAP_TYPE_PNG);
 }
+
+
 void Pawn::GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
     int x = currentPosition.GetX();
     int y = currentPosition.GetY();
-    int step = 0;
-    if (this->m_colour == DARK_PIECE)
-        step = 1;
-    else
-        step = -1;
-    Piece *other;
-    Point otherpoint;
+    const int PAWN_FORWARD_STEP = 1;
+    int step = (this->m_colour == DARK_PIECE) ? PAWN_FORWARD_STEP : -PAWN_FORWARD_STEP;
 
-    other = chessBoard[x][y + step];
-    otherpoint.SetXY(x, y + step);
-    if ((IsInBoard(otherpoint)) && IsEmpty(other))
-        SetValidMove(otherpoint, validMovesMatrix);
-
-    other = chessBoard[x + step][y + step];
-    otherpoint.SetXY(x + step, y + step);
-    if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
-        SetValidMove(otherpoint, validMovesMatrix);
-
-    other = chessBoard[x - step][y + step];
-    otherpoint.SetXY(x - step, y + step);
-    if (IsInBoard(otherpoint) && !IsEmpty(other) && (IsEnemy(this, other)))
-        SetValidMove(otherpoint, validMovesMatrix);
+    CheckAndSetMove(0, step, currentPosition, chessBoard, validMovesMatrix);     // Move forward
+    CheckAndSetMove(step, step, currentPosition, chessBoard, validMovesMatrix);  // Diagonal right
+    CheckAndSetMove(-step, step, currentPosition, chessBoard, validMovesMatrix); // Diagonal left
 }
 
 Piece::PieceColour Pawn::GetColour()
@@ -49,4 +35,10 @@ Piece::PieceColour Pawn::GetColour()
 
 void Pawn::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
+    Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);
+    Piece *targetPiece = chessBoard[targetPosition.GetX()][targetPosition.GetY()];
+    if ((IsInBoard(targetPosition)) && IsEmpty(targetPiece) && xChange == 0) // xChange == 0: Ignore Diagonal
+        SetValidMove(targetPosition, validMovesMatrix);
+    else if (IsInBoard(targetPosition) && !IsEmpty(targetPiece) && IsEnemy(this, targetPiece) && xChange != 0) // xChange == 0 Ignore forward
+        SetValidMove(targetPosition, validMovesMatrix);
 }
