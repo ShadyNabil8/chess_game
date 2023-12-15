@@ -35,8 +35,6 @@ Piece::PieceColour Queen::GetColour()
 }
 void Queen::CheckAndSetMove(int xChange, int yChange, const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE])
 {
-    const int FORWARD_STEP = 1;
-    const int BACKWARD_STEP = -1;
     Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);
     Piece *targetPiece;
     while (IsInBoard(targetPosition))
