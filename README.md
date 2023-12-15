@@ -34,3 +34,5 @@ The methods ```GetX()``` and ```GetY()``` must also be const because the compile
 
 * You can reserve initial size for the vector using ```reserve()``` to reduce recopying.
 * ```clear()``` set size to zero and also delete all the data.
+
+6. If there is an enum inside the class defination, it is only accessed inside the class difination and subclasses definations. Or use ```::``` to access it outside.
