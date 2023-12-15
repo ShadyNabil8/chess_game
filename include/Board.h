@@ -110,14 +110,6 @@ private:
 
     /**
      * @brief
-     * Get a pointer to a piece on a square.
-     * @param point The X and Y that defines the chosen square having the piece.
-     * @return Pointer to the piece.
-     */
-    Piece *GetPiece(const Point &point);
-
-    /**
-     * @brief
      * Assign a pointer for a piece to the array carring all pieces.
      * @param point The X and Y that defines the location of the piece on the board.
      * @param piece Pointer to the piece.
@@ -142,6 +134,14 @@ public:
     Board();
     Board(wxFrame *parent);
     ~Board();
+    
+    /**
+     * @brief
+     * Get a pointer to a piece on a square.
+     * @param point The X and Y that defines the chosen square having the piece.
+     * @return Pointer to the piece.
+     */
+    Piece *GetPiece(const Point &point);
 };
 
 #endif
