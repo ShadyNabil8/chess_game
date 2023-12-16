@@ -9,7 +9,7 @@ class King : public Piece
 public:
     King();
     King(PieceColour colour);
-    ~King();
+    ~King() override;
     void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
 
 private:

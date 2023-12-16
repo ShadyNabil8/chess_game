@@ -6,6 +6,10 @@ King::King()
 
 King::~King()
 {
+    if (GetColour() == DARK_PIECE)
+        wxMessageBox("White Wins", "Game Over!", wxOK | wxICON_INFORMATION);
+    else
+        wxMessageBox("Black Wins", "Game Over!", wxOK | wxICON_INFORMATION);
 }
 King::King(PieceColour colour) : Piece(colour)
 {

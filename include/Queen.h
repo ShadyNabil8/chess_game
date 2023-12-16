@@ -9,7 +9,7 @@ class Queen : public Piece
 public:
     Queen();
     Queen(PieceColour colour);
-    ~Queen();
+    ~Queen() override;
     void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
 
 private:

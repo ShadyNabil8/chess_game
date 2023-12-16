@@ -9,7 +9,7 @@ class Bishop : public Piece
 public:
     Bishop();
     Bishop(PieceColour colour);
-    ~Bishop();
+    ~Bishop() override;
     void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
 
 private:
