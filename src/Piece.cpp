@@ -62,8 +62,3 @@ void Piece::SetValidMove(const Point &targetPosition, bool validMovesMatrix[BOAR
     int y = targetPosition.GetY();
     validMovesMatrix[x][y] = true;
 }
-
-void Piece::Kill()
-{
-    delete this;
-}

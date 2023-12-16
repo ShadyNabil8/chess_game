@@ -40,7 +40,7 @@ public:
     wxBitmap *GetImage();
     PieceColour GetColour();
     virtual void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]) = 0;
-    void Kill();
+
 protected:
     void InitializeImage(const wxString &darkImage, const wxString &lightImage);
     wxBitmap *m_image;
