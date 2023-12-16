@@ -13,8 +13,6 @@
 
 #define INITIAL_VECTOR_SIZE 4
 
-typedef std::unique_ptr<Piece> piecePtr_t;
-
 class Board : public wxPanel
 {
 private:
