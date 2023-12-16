@@ -33,28 +33,28 @@ Board::Board(wxFrame *parent) : wxPanel(parent)
     Bind(wxEVT_PAINT, &Board::OnPaint, this);
     Bind(wxEVT_LEFT_DOWN, &Board::OnLeftClick, this);
 
-    pieces[0][0] = new Rook(Piece::DARK_PIECE);
-    pieces[1][0] = new Knight(Piece::DARK_PIECE);
-    pieces[2][0] = new Bishop(Piece::DARK_PIECE);
-    pieces[3][0] = new Queen(Piece::DARK_PIECE);
-    pieces[4][0] = new King(Piece::DARK_PIECE);
-    pieces[5][0] = new Bishop(Piece::DARK_PIECE);
-    pieces[6][0] = new Knight(Piece::DARK_PIECE);
-    pieces[7][0] = new Rook(Piece::DARK_PIECE);
+    pieces[0][0] = new Rook(DARK_PIECE);
+    pieces[1][0] = new Knight(DARK_PIECE);
+    pieces[2][0] = new Bishop(DARK_PIECE);
+    pieces[3][0] = new Queen(DARK_PIECE);
+    pieces[4][0] = new King(DARK_PIECE);
+    pieces[5][0] = new Bishop(DARK_PIECE);
+    pieces[6][0] = new Knight(DARK_PIECE);
+    pieces[7][0] = new Rook(DARK_PIECE);
 
-    pieces[0][7] = new Rook(Piece::LIGHT_PIECE);
-    pieces[1][7] = new Knight(Piece::LIGHT_PIECE);
-    pieces[2][7] = new Bishop(Piece::LIGHT_PIECE);
-    pieces[3][7] = new Queen(Piece::LIGHT_PIECE);
-    pieces[4][7] = new King(Piece::LIGHT_PIECE);
-    pieces[5][7] = new Bishop(Piece::LIGHT_PIECE);
-    pieces[6][7] = new Knight(Piece::LIGHT_PIECE);
-    pieces[7][7] = new Rook(Piece::LIGHT_PIECE);
+    pieces[0][7] = new Rook(LIGHT_PIECE);
+    pieces[1][7] = new Knight(LIGHT_PIECE);
+    pieces[2][7] = new Bishop(LIGHT_PIECE);
+    pieces[3][7] = new Queen(LIGHT_PIECE);
+    pieces[4][7] = new King(LIGHT_PIECE);
+    pieces[5][7] = new Bishop(LIGHT_PIECE);
+    pieces[6][7] = new Knight(LIGHT_PIECE);
+    pieces[7][7] = new Rook(LIGHT_PIECE);
 
     for (int i = 0; i < boardSize; i++)
     {
-        pieces[i][1] = new Pawn(Piece::DARK_PIECE);
-        pieces[i][6] = new Pawn(Piece::LIGHT_PIECE);
+        pieces[i][1] = new Pawn(DARK_PIECE);
+        pieces[i][6] = new Pawn(LIGHT_PIECE);
     }
 }
 
@@ -214,10 +214,10 @@ bool Board::IsLegalMoveSelected(Point &point)
 
 bool Board::IsCorrectPlayerTurn(const Point &point)
 {
-    Piece::PieceColour piececolor = GetPiece(point)->GetColour();
-    if (piececolor == Piece::DARK_PIECE && this->player == DARK_PLAYER)
+    PieceColour piececolor = GetPiece(point)->GetColour();
+    if (piececolor == DARK_PIECE && this->player == DARK_PLAYER)
         return true;
-    else if (piececolor == Piece::LIGHT_PIECE && this->player == LIGHT_PLAYER)
+    else if (piececolor == LIGHT_PIECE && this->player == LIGHT_PLAYER)
         return true;
     else
         return false;

@@ -16,7 +16,7 @@ wxBitmap *Piece::GetImage()
     return this->m_image;
 }
 
-Piece::PieceColour Piece::GetColour()
+PieceColour Piece::GetColour()
 {
     return this->m_colour;
 }

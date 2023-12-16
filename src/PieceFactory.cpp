@@ -8,31 +8,31 @@ PieceFactory::~PieceFactory()
 {
 }
 
-static std::unique_ptr<Piece> PieceFactory::CreatePawn(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreatePawn(PieceColour color)
 {
-    return std::make_unique<Pawn>(PieceColour);
+    return std::make_unique<Pawn>(color);
 }
-static std::unique_ptr<Piece> PieceFactory::CreateKing(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreateKing(PieceColour color)
 {
-    return std::make_unique<King>(PieceColour);
+    return std::make_unique<King>(color);
 }
-static std::unique_ptr<Piece> PieceFactory::CreateQueen(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreateQueen(PieceColour color)
 {
-    return std::make_unique<Queen>(PieceColour);
+    return std::make_unique<Queen>(color);
 }
-static std::unique_ptr<Piece> PieceFactory::CreateBishop(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreateBishop(PieceColour color)
 {
-    return std::make_unique<Bishop>(PieceColour);
+    return std::make_unique<Bishop>(color);
 }
-static std::unique_ptr<Piece> PieceFactory::CreateKnight(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreateKnight(PieceColour color)
 {
-    return std::make_unique<Knight>(PieceColour);
+    return std::make_unique<Knight>(color);
 }
-static std::unique_ptr<Piece> PieceFactory::CreateRook(Piece::PieceColour)
+std::unique_ptr<Piece> PieceFactory::CreateRook(PieceColour color)
 {
-    return std::make_unique<Rook>(PieceColour);
+    return std::make_unique<Rook>(color);
 }
-static void PieceFactory : DeletePiece(std::unique_ptr<Piece> piece)
+void PieceFactory ::DeletePiece(std::unique_ptr<Piece> piece)
 {
     /* calling reset on a std::unique_ptr sets it to nullptr,
      * causing the associated memory to be released and the destructor of the managed object to be called.

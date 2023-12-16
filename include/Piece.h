@@ -26,14 +26,15 @@
 #define BOARD_SIZE 8
 #endif
 
+enum PieceColour
+{
+    DARK_PIECE = 0,
+    LIGHT_PIECE
+};
+
 class Piece
 {
 public:
-    enum PieceColour
-    {
-        DARK_PIECE = 0,
-        LIGHT_PIECE
-    };
     Piece();
     Piece(PieceColour colour);
     ~Piece();
