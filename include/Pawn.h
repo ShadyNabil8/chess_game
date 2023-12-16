@@ -9,7 +9,7 @@ class Pawn : public Piece
 public:
     Pawn();
     Pawn(PieceColour colour);
-    ~Pawn();
+    ~Pawn() override;
     void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]);
 
 private:

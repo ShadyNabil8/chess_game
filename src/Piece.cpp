@@ -5,6 +5,7 @@ Piece::Piece()
 }
 Piece::~Piece()
 {
+    delete this->m_image;
 }
 
 Piece::Piece(PieceColour colour) : m_colour(colour), m_image(nullptr)

@@ -45,3 +45,5 @@ Rook::Rook(PieceColour colour) : Piece(colour)
     InitializeImage(CHESS_BLACK_ROOK, CHESS_WHITE_ROOK);
 }
 ```
+
+8. In C++, when a derived class object is deleted through a pointer to the base class with a virtual destructor, the destructors are called in the reverse order of construction. This is known as the "most derived to base" order of destruction.

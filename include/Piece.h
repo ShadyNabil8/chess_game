@@ -37,7 +37,7 @@ class Piece
 public:
     Piece();
     Piece(PieceColour colour);
-    ~Piece();
+    virtual ~Piece();
     wxBitmap *GetImage();
     PieceColour GetColour();
     virtual void GetLegalMoves(const Point &currentPosition, Piece *chessBoard[BOARD_SIZE][BOARD_SIZE], bool validMovesMatrix[BOARD_SIZE][BOARD_SIZE]) = 0;
