@@ -29,8 +29,11 @@ void King::CheckAndSetMove(int xChange, int yChange, const Point &currentPositio
 {
     Point targetPosition(currentPosition.GetX() + xChange, currentPosition.GetY() + yChange);
     Piece *targetPiece = chessBoard[targetPosition.GetX()][targetPosition.GetY()];
-    if (IsEmpty(targetPiece))
-        SetValidMove(targetPosition, validMovesMatrix);
-    else if (IsEnemy(this, targetPiece))
-        SetValidMove(targetPosition, validMovesMatrix);
+    if (IsInBoard(targetPosition))
+    {
+        if (IsEmpty(targetPiece))
+            SetValidMove(targetPosition, validMovesMatrix);
+        else if (IsEnemy(this, targetPiece))
+            SetValidMove(targetPosition, validMovesMatrix);
+    }
 }

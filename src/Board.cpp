@@ -152,6 +152,7 @@ void Board::CleanSquare(const Point &point)
 {
     if (!IsEmptySquare(point))
     {
+        //GetPiece(point)->Kill();
         delete GetPiece(point);
         SetPiece(point, nullptr);
     }
